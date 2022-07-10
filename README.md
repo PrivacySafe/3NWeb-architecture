@@ -61,7 +61,7 @@ Let's enumerate wishes that may direct and constraint following designs.
 
 In a usual human interaction, if a person is not giving out own information, it doesn't spread by itself. To map usual expectations to digital domain, we want to ensure tight information control. Thankfully, encryption allows to turn plain text content to bulk cipher and a key. Hence, bulk bytes can pass through third parties only in cipher form, with as little metadata as possible.
 
-Human life spans long period, over which artifacts collect, and, for example, a grandfather may show pictures to one's grandchild. We want to have the same timelessness with digital artifacts. On a stand alone computer you can open CorelDraw file, and you may even run some old WordPerfect program on an old operating system inside a virtual machine. We want to have an environment in which users can have applications usable long after original developer company is gone.
+Human life spans long period, over which artifacts collect, and, for example, a grandfather can show pictures to one's grandchild. We want to have the same timelessness with digital artifacts. On a stand alone computer you can open CorelDraw file, and you may even run some old WordPerfect program on an old operating system inside a virtual machine. We want to have an environment in which users can have applications usable long after original developer company is gone.
 
 It should be easy to write applications, as easy as writing a web page. And no permissions should be needed to participate in the ecosystem. Everything short of permissionless model gets abused by monopolistic tendencies.
 
