@@ -1,6 +1,7 @@
 # 3NWeb Architectural Notes
 
-3NWeb is a bunch of protocols, formats and conventions for writing bodies of software that allow user
+3NWeb is an uncompromisingly user-centric digital space.
+Definition of such space has to consist of a bunch of protocols, formats and conventions for writing bodies of software that allow user
  - to operate in a connected cyberspace
  - using one or more devices
  - having a full control over one's tools
