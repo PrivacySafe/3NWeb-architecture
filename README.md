@@ -9,10 +9,9 @@ Definition of such space has to consist of a bunch of protocols, formats and con
 
 3NWeb-following software parts compose together into a coherent operating system for user's stuff in today's digitalized society, ensuring end user's technological sovereignty.
 
-Let's motive focus area and layout details:
+Content:
  - [User interests must come first](#section-raison)
- - [Wishes](#section-wishes)
- - [Design considerations](#section-considerations)
+ - [Design considerations dictated by wishes](#section-considerations)
  - Implementations and standards
    - Basic needs: identity, communication and storage
    - Server-client protocols
@@ -60,22 +59,31 @@ There are applications like PGP, SpiderOak, Signal, with designs that place user
 3NWeb effort brings known working designs into a coherent foundation on top of which different applications can be written by developers.
 
 
-## <a name="section-wishes"></a> Wishes
+## <a name="section-considerations"></a> Design considerations dictated by wishes
 
-Let's enumerate wishes that may direct and constrain architecture designs.
+### Data encryption, metadata and 3rd parties
 
-In a usual human interaction, if a person is not giving out own information, it doesn't spread by itself. To map usual expectations to digital domain, we want to ensure tight information control. Thankfully, encryption allows to turn plain text content to bulk cipher and a key. Hence, bulk bytes can pass through third parties only in cipher form, with as little metadata as possible.
+In a usual human interaction, when a person is not giving out own information, it doesn't spread by itself.
 
-Human life spans long period, over which artifacts collect, and, for example, a grandfather can show pictures to one's grandchild. We want to have the same timelessness with digital artifacts. On a stand alone computer you can open CorelDraw file, and you may even run some old WordPerfect program on an old operating system inside a virtual machine. We want to have an environment in which users can have applications usable long after original developer company is gone.
+To map usual expectations to digital domain, we want to ensure tight information control. Thankfully, encryption allows to turn plain text content to bulk cipher and a key. Hence, in our designs bulk bytes can pass through third parties only in cipher form, with as little metadata as possible.
+
+### Longevity
+
+Human life spans long period, over which artifacts collect, and, for example, a grandfather can show pictures to one's grandchild.
+
+We want to have the same timelessness with digital artifacts. On a stand-alone computer you can open CorelDraw file, and you may even run some old WordPerfect program on an old operating system inside a virtual machine. Digital longevity is attainable. Hence, we design an environment in which users can have applications usable long after original developer company is gone.
+
+### Permissionless innovation
 
 It should be easy to write applications, as easy as writing a web page. And no permissions should be needed to participate in the ecosystem. Everything short of permissionless model gets abused by monopolistic tendencies.
 
+### User freedom
+
 User should be able to completely rely on one's own devices, and be able to choose, to mix and match suppliers. Users shouldn't be bound to only single vendor, or only single implementation of major utility functions on which plethora of useful apps runs.
 
+### Multi-device convenience
+
 People now have several devices. Applications should be able to run on several user devices at once. Applications should be able to pass messages between different users, as well.
-
-
-## <a name="section-considerations"></a> Design considerations
 
 
 
