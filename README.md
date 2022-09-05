@@ -86,4 +86,7 @@ User should be able to completely rely on one's own devices, and be able to choo
 People now have several devices. Applications should be able to run on several user devices at once. Applications should be able to pass messages between different users, as well.
 
 
+## Implementations and standards
+
+Docs writting is in progress, but see an existing [Overview and architecture](./etc/3NWeb-overview.pdf) with more details about specs.
 
