@@ -10,7 +10,7 @@ Definition of such space has to consist of a bunch of protocols, formats and con
 3NWeb-following software parts compose together into a coherent operating system for user's stuff in today's digitalized society, ensuring end user's technological sovereignty.
 
 Let's motive focus area and layout details:
- - [Users first](#section-raison)
+ - [User interests must come first](#section-raison)
  - [Wishes](#section-wishes)
  - [Design considerations](#section-considerations)
  - Implementations and standards
@@ -19,7 +19,7 @@ Let's motive focus area and layout details:
    - Stack
 
 
-## <a name="section-raison"></a> Users first
+## <a name="section-raison"></a> User interests must come first
 
 Everything in modern society depends on tech. For instance, in Estonia you can't participate in life without electronic id with signatures, and Israel explicitly gives smartphone SIM-cards to newly repatriated. Modern life happens in cyberspace making it an important domain of our environment.
  
@@ -27,7 +27,8 @@ Everything in modern society depends on tech. For instance, in Estonia you can't
 >
 > -- Cory Doctorow
 
-At the start of this century tensions have already been noted in the digital domain:
+At the start of this century tensions have already been noted in the digital domain (from ["Tussle in Cyberspace: Defining Tomorrow's Internet", DOI 10.1145/633025.633059, August 2002](https://groups.csail.mit.edu/ana/Publications/PubPDFs/Tussle2002.pdf) ):
+
 > 2. PRINCIPLES
 >
 > The thesis of this paper is that the future of the Internet will increasingly be defined
@@ -40,9 +41,9 @@ recognition of this fact?
 >
 > ... We, as technical designers, should not try to deny the reality of the tussle, but instead recognize our power to shape it. Once we do so, we acquire a new set of hard, technical problems to solve, and this is a challenge we should step up to willingly.
 >
-> -- from ["Tussle in Cyberspace: Defining Tomorrow's Internet", DOI 10.1145/633025.633059, August 2002](https://groups.csail.mit.edu/ana/Publications/PubPDFs/Tussle2002.pdf)
 
-Over the next two decades we've seen a rise of monopolists and even talking about [digital feudalism](https://www.schneier.com/blog/archives/2012/12/feudal_sec.html). 2020 saw the following:
+Over the next two decades we've seen a rise of monopolists and even talks about [digital feudalism](https://www.schneier.com/blog/archives/2012/12/feudal_sec.html). 2020 saw [RFC 8890](https://www.rfc-editor.org/rfc/rfc8890.txt) with:
+
 > 3. Why the IETF Should Prioritize End Users
 >
 > Merely advancing the measurable success of the Internet (e.g., deployment size, bandwidth, latency, number of users) is not an adequate goal; doing so ignores how technology is so often used as a lever to assert power over users, rather than empower them.
@@ -51,14 +52,17 @@ Over the next two decades we've seen a rise of monopolists and even talking abou
 >
 > Ultimately, the Internet will succeed or fail based upon the actions of its end users, because they are the driving force behind its growth to date.  Not prioritizing them jeopardizes the network effect that the Internet relies upon to provide so much value.
 >
-> -- from [RFC 8890, August 2020](https://www.rfc-editor.org/rfc/rfc8890.txt)
 
-With this direction of discourse it is not outrages to suggest that we don't have yet a comprehensive solution for user private affairs, completely under average user control. However, we do have working application like PGP, SpiderOak, Signal: all good examples of designs that place user in control of their stuff. 3NWeb effort simply combines working designs into a coherent set on top of which new different applications can be written by developers without a chance to screw user's security, privacy or independence.
+There are applications like PGP, SpiderOak, Signal, with designs that place user in control of their stuff. These are celebrated examples cause the majority isn't like them. Currently it is easier to make centralized design, placing user stuff into piles that both attract hacker with size and seduce vendors with monopolistic control, leading to fatalistic notes in a public discourse.
+
+3NWeb comes from a premise that when it is easy to develop user-respecting apps, when it is cheaper to operate user-respecting system, then we'll see more of them, making respect of user a norm.
+
+3NWeb effort brings known working designs into a coherent foundation on top of which different applications can be written by developers.
 
 
 ## <a name="section-wishes"></a> Wishes
 
-Let's enumerate wishes that may direct and constraint following designs.
+Let's enumerate wishes that may direct and constrain architecture designs.
 
 In a usual human interaction, if a person is not giving out own information, it doesn't spread by itself. To map usual expectations to digital domain, we want to ensure tight information control. Thankfully, encryption allows to turn plain text content to bulk cipher and a key. Hence, bulk bytes can pass through third parties only in cipher form, with as little metadata as possible.
 
