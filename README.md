@@ -9,7 +9,7 @@ Definition of such space has to consist of a bunch of protocols, formats and con
 
 3NWeb-following software parts compose together into a coherent operating system for user's stuff in today's digitalized society, ensuring end user's technological sovereignty.
 
-Content:
+### Content:
  - [User interests must come first](#section-raison)
  - [Design considerations dictated by wishes](#section-considerations)
  - Implementations and standards
