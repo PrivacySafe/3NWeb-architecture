@@ -97,6 +97,15 @@ People now have several devices. Applications should be able to run on several u
 
 ### <a name="section-pola"></a> The Principle of Least Authority for client-server architectures
 
+Client-server systems are used everywhere, they are efficient. Often clients pass some data to server, and this becomes a magnet for bad actors. Any bit of passed data and meta-data comes with an implicit authority that gets abused. We should apply the Principle of Least Authority (POLA).
+
+Let's formulate POLA in terms relevant to client-server communications as 3N's:
+ - No plain text user content should be given to server.
+ - No unnecessary metadata should be present or generated in client-server interaction.
+ - Nothing can be abused on the server, when the first two criteria are met.
+
+We use 3N principle every time in assesing protocols' designs. The first N is met by end-to-end encryption (E2EE), and in principle this is a solved problem. The second N, the metadata part, will take more consideration and specific tricks for particular services.
+
 
 ### <a name="section-federation"></a> Federated systems, classical vs web styles
 
