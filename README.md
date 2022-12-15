@@ -109,8 +109,32 @@ We use 3N principle every time in assesing protocols' designs. The first N is me
 
 ### <a name="section-federation"></a> Federated systems, classical vs web styles
 
+#### Classical Federation
+
+Federated service is commonly assumed to be a pattern used in many protocols like XMPP, SMTP (common email), Matrix, etc. We call this pattern classical federation.
+
+Relationships between parties in classical federation look as follows.
+
+![Relationships between parties in Classical Federation](federation/roles_in_classical_federation.png)
+
+Users have accounts at servers. User is owner of some resource on the respective server. Users connect only to their own servers, while servers talk to each other, cooperatively passing data.
+
+![Information flows in Classical Federation](federation/data_flows_in_classical_federation.png)
+
+Effectively users delegate to their servers work of getting and passing data. But this delegation requires user to pass to servers lots of metadata, which goes against security goal of minimizing metadata spills.
+
+![Problems in Classical Federation](federation/two_problems_in_classical_federation.png)
+
+Besides metadata problem, cooperative relationship between servers requires cooperation. But the world have a few examples of bigger vendors stopping cooperation, breaking user experience of communication with users of other vendors.
+
+
+#### Web style Federation
+
 
 ## Implementations and standards
+
+*Have diagram with client, server and parts in a client.*
+*Have a table like in presentation, from which every protocol/api is a link to respective md file*
 
 Docs writting is in progress, but see an existing [Overview and architecture](./etc/3NWeb-overview.pdf) with more details about specs.
 
