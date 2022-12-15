@@ -125,7 +125,7 @@ Effectively users delegate to their servers work of getting and passing data. Bu
 
 ![Problems in Classical Federation](federation/two_problems_in_classical_federation.png)
 
-Besides metadata problem, cooperative relationship between servers requires cooperation. But the world have a few examples of bigger vendors stopping cooperation, breaking user experience of communication with users of other vendors.
+Besides metadata problem, cooperative relationship between servers requires cooperation. But the world have seen a few examples of bigger vendors stopping cooperation, breaking user experience of communication with users of other vendors.
 
 
 #### Web style Federation
