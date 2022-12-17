@@ -130,6 +130,10 @@ Besides metadata problem, cooperative relationship between servers requires coop
 
 #### Web style Federation
 
+![Relationships between parties in Web style Federation](federation/roles_in_web_federation.png)
+
+![Information flows in Web style Federation](federation/data_flows_in_web_federation.png)
+
 
 ## Implementations and standards
 
