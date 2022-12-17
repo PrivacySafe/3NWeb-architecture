@@ -130,9 +130,17 @@ Besides metadata problem, cooperative relationship between servers requires coop
 
 #### Web style Federation
 
+On the web, when someone uses simultaneously two different web sites, respective servers don't communicate and providers don't cooperate with each other. There is no cooperation in web style federation for vendors to break! If a user doesn't want to communicate to some domain, and stops, it is user's own choice. This is a perfect foundation for utility protocols.
+
 ![Relationships between parties in Web style Federation](federation/roles_in_web_federation.png)
 
+In classical federation clients delegate to own server communication with server's of peers. In web federation, clients connect to servers of their peers. And this leads to reduction of metadata that is needed by servers for work.
+
 ![Information flows in Web style Federation](federation/data_flows_in_web_federation.png)
+
+Server only needs to accept some encrypted data for its users, and/or allow guests to pick encrypted data in accordance with users' directives. This reduces metadata to its minimum, server doesn't need to know who is on another side of a guest connection.
+
+This web federation pattern also shows that there need to be a naming system for it to work, like DNS. Moreover, hiding of IP addresses can be done with VPN's, Tor and mixnets, suggesting reuse of existing transport layers. Formulation on top of existing HTTP/2 may focus our architectural effort on information flows and security.
 
 
 ## Implementations and standards
