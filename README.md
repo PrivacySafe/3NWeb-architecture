@@ -147,8 +147,9 @@ Let's note that 3NWeb name has been choosen to high light that both 3N principle
 
 ## Implementations and standards
 
-*Have diagram with client, server and parts in a client.*
-*Have a table like in presentation, from which every protocol/api is a link to respective md file*
+*TBD: a diagram with client, server and parts in a client.*
+
+*TBD: a table like in presentation, from which every protocol/api is a link to respective md file*
 
 Docs writting is in progress, but see an existing [Overview and architecture](./etc/3NWeb-overview.pdf) with more details about specs.
 
