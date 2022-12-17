@@ -142,7 +142,7 @@ Server only needs to accept some encrypted data for its users, and/or allow gues
 
 This web federation pattern also shows that there need to be a naming system for it to work, like DNS. Moreover, hiding of IP addresses can be done with VPN's, Tor and mixnets, suggesting reuse of existing transport layers. Formulation on top of existing HTTP/2 may focus our architectural effort on information flows and security.
 
-Let's note that 3NWeb name has been choosen to high light that both 3N principle and Web style Federation will be used in the architecure.
+Let's note that 3NWeb name has been choosen to highlight usage of both 3N principle and Web style Federation in the architecure.
 
 
 ## Implementations and standards
