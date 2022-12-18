@@ -17,10 +17,9 @@ Definition of such space has to consist of a bunch of protocols, formats and con
  - [Architectural principles](#part-architectural-principles):
    - [The Principle of Least Authority for client-server architectures](#section-pola)
    - [Federated systems, classical vs web styles](#section-federation)
- - [Implementations and standards](#part-impl)
-   - Basic needs: identity, communication and storage
-   - Server-client protocols
-   - Stack
+ - [Implementation and standards](#part-impl)
+   - [Client side](#section-client-side)
+   - [Server side](#section-server-side)
 
 
 ## <a name="part-motivation"></a> Motivation
@@ -145,19 +144,27 @@ This web federation pattern also shows that there need to be a naming system for
 Let's note that 3NWeb name has been choosen to highlight usage of both 3N principle and Web style Federation in the architecure.
 
 
-## <a name="part-impl"></a> Implementations and standards
+## <a name="part-impl"></a> Implementation and standards
 
 App developers make different applications for users. Applications need utilites like file system, while app developers should be shielded from touching encryption and other common details. This is done by OS-like layer that provides common utilities to applications on one side, and talks to 3NWeb servers on the other.
 
 ![Implementation parts: 3NWeb apps, OS-like layer, 3NWeb utility services](implementation/implementation_parts.png)
 
+### <a name="section-client-side"></a> Client side 
+
 The OS-like layer can be tasked with starting different apps, setting up ipc to allow some apps to provide services to other apps, etc.
 
 The OS-like layer allows to present a metadata-rich file system to apps, while using client-server storage protocol for opague encrypted blobs.
 
--------
+...
 
-*TBD: a table with every protocol/api and links to respective md files*
+
+### <a name="section-server-side"></a> Server side 
+
+...
+
+
+-------
 
 Docs writting is in progress, but see an existing [Overview and architecture](./etc/3NWeb-overview.pdf) with more details about specs.
 
