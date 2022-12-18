@@ -147,7 +147,7 @@ Let's note that 3NWeb name has been choosen to highlight usage of both 3N princi
 
 ## <a name="part-impl"></a> Implementations and standards
 
-Users need useful tools. App developers need a base with end-to-end encryption and private communication backed in once and reused many times.
+Users need useful tools. App developers need a base with end-to-end encrypted storage, private communication and other utilities implemented once and used by many.
 
 ![Implementation parts: 3NWeb apps, OS-like layer, 3NWeb utility services](implementation/implementation_parts.png)
 
