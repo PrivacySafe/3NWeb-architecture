@@ -17,7 +17,7 @@ Definition of such space has to consist of a bunch of protocols, formats and con
  - [Architectural principles](#part-architectural-principles):
    - [The Principle of Least Authority for client-server architectures](#section-pola)
    - [Federated systems, classical vs web styles](#section-federation)
- - Implementations and standards
+ - [Implementations and standards](#part-impl)
    - Basic needs: identity, communication and storage
    - Server-client protocols
    - Stack
@@ -145,11 +145,15 @@ This web federation pattern also shows that there need to be a naming system for
 Let's note that 3NWeb name has been choosen to highlight usage of both 3N principle and Web style Federation in the architecure.
 
 
-## Implementations and standards
+## <a name="part-impl"></a> Implementations and standards
 
-*TBD: a diagram with client, server and parts in a client.*
+Users need useful tools. App developers need a base with end-to-end encryption and private communication backed in once and reused many times.
 
-*TBD: a table like in presentation, from which every protocol/api is a link to respective md file*
+![Implementation parts: 3NWeb apps, OS-like layer, 3NWeb utility services](implementation/implementation_parts.png)
+
+-------
+
+*TBD: a table with every protocol/api and links to respective md files*
 
 Docs writting is in progress, but see an existing [Overview and architecture](./etc/3NWeb-overview.pdf) with more details about specs.
 
