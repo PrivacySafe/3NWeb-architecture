@@ -147,9 +147,13 @@ Let's note that 3NWeb name has been choosen to highlight usage of both 3N princi
 
 ## <a name="part-impl"></a> Implementations and standards
 
-Users need useful tools. App developers need a base with end-to-end encrypted storage, private communication and other utilities implemented once and used by many.
+App developers make different applications for users. Applications need utilites like file system, while app developers should be shielded from touching encryption and other common details. This is done by OS-like layer that provides common utilities to applications on one side, and talks to 3NWeb servers on the other.
 
 ![Implementation parts: 3NWeb apps, OS-like layer, 3NWeb utility services](implementation/implementation_parts.png)
+
+The OS-like layer can be tasked with starting different apps, setting up ipc to allow some apps to provide services to other apps, etc.
+
+The OS-like layer allows to present a metadata-rich file system to apps, while using client-server storage protocol for opague encrypted blobs.
 
 -------
 
