@@ -161,7 +161,7 @@ The OS-like layer provides to 3NWeb apps a few capabilities:
    - [mail](./capabilities/mail/README.md) - uses [Authenticate Secure Mail (ASMail) protocol](./protocols/asmail/README.md)
    - [storage](./capabilities/storage/README.md) - uses [3NStorage protocol](./protocols/3nstorage/README.md)
    - [mailerid](./capabilities/mailerid/README.md) - uses [MailerId protocol](./protocols/mailerid/README.md)
- - the rest provide utilities to merge individual apps into a coherent system on user's devices:
+ - the rest provide utilities to merge individual apps into a coherent system on user devices:
    - closeSelf
    - log
    - shell.fileDialog
