@@ -162,11 +162,16 @@ The OS-like layer provides to 3NWeb apps a few capabilities:
    - [storage](./capabilities/storage/README.md) - uses [3NStorage protocol](./protocols/3nstorage/README.md)
    - [mailerid](./capabilities/mailerid/README.md) - uses [MailerId protocol](./protocols/mailerid/README.md)
  - the rest provide utilities to merge individual apps into a coherent system on user devices:
+   - appRPC
+   - otherAppsRPC
+   - exposeService
+   - connectivity
    - closeSelf
    - log
    - shell.fileDialog
    - shell.mountFS
    - shell.userNotifications
+   - logout
    - apps.opener
    - apps.downloader
    - apps.installer
