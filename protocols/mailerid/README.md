@@ -1,0 +1,1 @@
+# MailerId protocol

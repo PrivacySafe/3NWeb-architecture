@@ -150,13 +150,27 @@ App developers make different applications for users. Applications need utilites
 
 ![Implementation parts: 3NWeb apps, OS-like layer, 3NWeb utility services](implementation/implementation_parts.png)
 
-### <a name="section-client-side"></a> Client side 
+### <a name="section-client-side"></a> Client side
 
-The OS-like layer can be tasked with starting different apps, setting up ipc to allow some apps to provide services to other apps, etc.
+The most simplest case of 3NWeb apps is written like web apps, suggesting to standardize utilities in TypeScript/JavaScript form. But, we want to leave room for choice of languages and runtimes for 3NWeb apps. Therefore, for each utility we can standardize pattern of calls and serialization formats of messages passed. Making calls and turning inputs and output messages is handled individually by each runtime+language combo.
 
-The OS-like layer allows to present a metadata-rich file system to apps, while using client-server storage protocol for opague encrypted blobs.
+The OS-like layer starts different 3NWeb apps. Each app has a manifest that identifies utilities, or capabilities that app requests. This is a capability model, giving to running app only what it needs. App manifest is [described here](./app-manifest/README.md).
 
-...
+The OS-like layer provides to 3NWeb apps a few capabilities.
+The following are backed by communication with servers via 3NWeb protocols:
+ - [mail](./capabilities/mail/README.md) - uses [Authenticate Secure Mail (ASMail) protocol](./protocols/asmail/README.md)
+ - [storage](./capabilities/storage/README.md) - uses [3NStorage protocol](./protocols/3nstorage/README.md)
+ - [mailerid](./capabilities/mailerid/README.md) - uses [MailerId protocol](./protocols/mailerid/README.md)
+The rest provide utilities to merge individual apps into a coherent system on user's devices:
+ - closeSelf
+ - log
+ - shell.fileDialog
+ - shell.mountFS
+ - shell.userNotifications
+ - apps.opener
+ - apps.downloader
+ - apps.installer
+ - platform
 
 
 ### <a name="section-server-side"></a> Server side 
