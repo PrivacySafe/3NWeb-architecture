@@ -146,7 +146,7 @@ Let's note that 3NWeb name has been choosen to highlight usage of both 3N princi
 
 ## <a name="part-impl"></a> Implementation and standards
 
-App developers make different applications for users. Applications need utilites like file system, while app developers should be shielded from touching encryption and other common details. This is done by OS-like layer that provides common utilities to applications on one side, and talks to 3NWeb servers on the other.
+App developers make different applications for users. Applications need utilites like file system, while app developers should be shielded from touching encryption and other common details. This is done by an OS-like layer that provides common utilities to applications on one side, and talks to 3NWeb servers on the other.
 
 ![Implementation parts: 3NWeb apps, OS-like layer, 3NWeb utility services](implementation/implementation_parts.png)
 
@@ -156,7 +156,7 @@ The OS-like layer starts different 3NWeb apps. Each app has a manifest that iden
 
 ![Implementation parts: capabilities and protocols](implementation/caps_and_protocols.png)
 
-Some 3NWeb apps capabilities are backed by communication with servers via 3NWeb protocols:
+Some 3NWeb app capabilities are backed by communication with servers via 3NWeb protocols:
  - [mail](./capabilities/mail/README.md) - uses [Authenticate Secure Mail (ASMail) protocol](./protocols/asmail/README.md)
  - [storage](./capabilities/storage/README.md) - uses [3NStorage protocol](./protocols/3nstorage/README.md)
  - [mailerid](./capabilities/mailerid/README.md) - uses [MailerId protocol](./protocols/mailerid/README.md)
