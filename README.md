@@ -156,13 +156,12 @@ The most simplest case of 3NWeb apps is written like web apps, suggesting to sta
 
 The OS-like layer starts different 3NWeb apps. Each app has a manifest that identifies utilities, or capabilities that app requests. This is a capability model, giving to running app only what it needs. App manifest is [described here](./app-manifest/README.md).
 
-The OS-like layer provides to 3NWeb apps a few capabilities.
-
- - The following are backed by communication with servers via 3NWeb protocols:
+The OS-like layer provides to 3NWeb apps a few capabilities:
+ - some are backed by communication with servers via 3NWeb protocols:
    - [mail](./capabilities/mail/README.md) - uses [Authenticate Secure Mail (ASMail) protocol](./protocols/asmail/README.md)
    - [storage](./capabilities/storage/README.md) - uses [3NStorage protocol](./protocols/3nstorage/README.md)
    - [mailerid](./capabilities/mailerid/README.md) - uses [MailerId protocol](./protocols/mailerid/README.md)
- - The rest provide utilities to merge individual apps into a coherent system on user's devices:
+ - the rest provide utilities to merge individual apps into a coherent system on user's devices:
    - closeSelf
    - log
    - shell.fileDialog
