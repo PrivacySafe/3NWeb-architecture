@@ -158,21 +158,20 @@ The OS-like layer starts different 3NWeb apps. Each app has a manifest that iden
 
 The OS-like layer provides to 3NWeb apps a few capabilities.
 
-The following are backed by communication with servers via 3NWeb protocols:
- - [mail](./capabilities/mail/README.md) - uses [Authenticate Secure Mail (ASMail) protocol](./protocols/asmail/README.md)
- - [storage](./capabilities/storage/README.md) - uses [3NStorage protocol](./protocols/3nstorage/README.md)
- - [mailerid](./capabilities/mailerid/README.md) - uses [MailerId protocol](./protocols/mailerid/README.md)
-
-The rest provide utilities to merge individual apps into a coherent system on user's devices:
- - closeSelf
- - log
- - shell.fileDialog
- - shell.mountFS
- - shell.userNotifications
- - apps.opener
- - apps.downloader
- - apps.installer
- - platform
+ - The following are backed by communication with servers via 3NWeb protocols:
+  - [mail](./capabilities/mail/README.md) - uses [Authenticate Secure Mail (ASMail) protocol](./protocols/asmail/README.md)
+  - [storage](./capabilities/storage/README.md) - uses [3NStorage protocol](./protocols/3nstorage/README.md)
+  - [mailerid](./capabilities/mailerid/README.md) - uses [MailerId protocol](./protocols/mailerid/README.md)
+ - The rest provide utilities to merge individual apps into a coherent system on user's devices:
+  - closeSelf
+  - log
+  - shell.fileDialog
+  - shell.mountFS
+  - shell.userNotifications
+  - apps.opener
+  - apps.downloader
+  - apps.installer
+  - platform
 
 
 ### <a name="section-server-side"></a> Server side 
