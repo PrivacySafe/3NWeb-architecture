@@ -152,30 +152,30 @@ App developers make different applications for users. Applications need utilites
 
 ### <a name="section-client-side"></a> Client side
 
-The most simplest case of 3NWeb apps is written like web apps, suggesting to standardize utilities in TypeScript/JavaScript form. But, we want to leave room for choice of languages and runtimes for 3NWeb apps. Therefore, for each utility we can standardize pattern of calls and serialization formats of messages passed. Making calls and turning inputs and output messages is handled individually by each runtime+language combo.
-
 The OS-like layer starts different 3NWeb apps. Each app has a manifest that identifies utilities, or capabilities that app requests. This is a capability model, giving to running app only what it needs. App manifest is [described here](./app-manifest/README.md).
 
-The OS-like layer provides to 3NWeb apps a few capabilities:
- - some are backed by communication with servers via 3NWeb protocols:
-   - [mail](./capabilities/mail/README.md) - uses [Authenticate Secure Mail (ASMail) protocol](./protocols/asmail/README.md)
-   - [storage](./capabilities/storage/README.md) - uses [3NStorage protocol](./protocols/3nstorage/README.md)
-   - [mailerid](./capabilities/mailerid/README.md) - uses [MailerId protocol](./protocols/mailerid/README.md)
- - the rest provide utilities to merge individual apps into a coherent system on user devices:
-   - appRPC
-   - otherAppsRPC
-   - exposeService
-   - connectivity
-   - closeSelf
-   - log
-   - shell.fileDialog
-   - shell.mountFS
-   - shell.userNotifications
-   - logout
-   - apps.opener
-   - apps.downloader
-   - apps.installer
-   - platform
+![Implementation parts: capabilities and protocols](implementation/caps_and_protocols.png)
+
+Some 3NWeb apps capabilities are backed by communication with servers via 3NWeb protocols:
+ - [mail](./capabilities/mail/README.md) - uses [Authenticate Secure Mail (ASMail) protocol](./protocols/asmail/README.md)
+ - [storage](./capabilities/storage/README.md) - uses [3NStorage protocol](./protocols/3nstorage/README.md)
+ - [mailerid](./capabilities/mailerid/README.md) - uses [MailerId protocol](./protocols/mailerid/README.md)
+
+The rest help to combine individual apps into a coherent system on user devices:
+ - appRPC
+ - otherAppsRPC
+ - exposeService
+ - connectivity
+ - closeSelf
+ - log
+ - shell.fileDialog
+ - shell.mountFS
+ - shell.userNotifications
+ - logout
+ - apps.opener
+ - apps.downloader
+ - apps.installer
+ - platform
 
 
 ### <a name="section-server-side"></a> Server side 
