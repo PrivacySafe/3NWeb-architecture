@@ -11,20 +11,22 @@ Definition of such space has to consist of a bunch of protocols, formats and con
 
 ### Content:
 
- - [Motivation](#part-motivation):
-   - [User interests must come first](#section-raison)
-   - [Design considerations dictated by wishes](#section-considerations)
- - [Architectural principles](#part-architectural-principles):
-   - [The Principle of Least Authority for client-server architectures](#section-pola)
-   - [Federated systems, classical vs web styles](#section-federation)
- - [Implementation and standards](#part-impl)
-   - [Client side](#section-client-side)
-   - [Server side](#section-server-side)
+ - [Motivation](#motivation):
+   - [User interests must come first](#user-interests-must-come-first)
+   - [Design considerations dictated by wishes](#design-considerations-dictated-by-wishes)
+ - [Architectural principles](#architectural-principles):
+   - [The Principle of Least Authority for client-server architectures](#the-principle-of-least-authority-for-client-server-architectures)
+   - [Federated systems, classical vs web styles](#federated-systems-classical-vs-web-styles)
+ - [Implementation and standards](#implementation-and-standards)
+   - [Client side](#client-side)
+   - [3NWeb user ids](#3nweb-user-ids)
+   - [Locating user services](#locating-user-services)
+   - [3NWeb service protocols](#3nweb-service-protocols)
 
 
-## <a name="part-motivation"></a> Motivation
+## Motivation
 
-### <a name="section-raison"></a> User interests must come first
+### User interests must come first
 
 Everything in modern society depends on tech. For instance, in Estonia you can't participate in life without electronic id with signatures, and Israel explicitly gives smartphone SIM-cards to newly repatriated. Modern life happens in cyberspace making it an important domain of our environment.
  
@@ -65,7 +67,7 @@ There are applications like PGP, SpiderOak, Signal, with designs that place user
 3NWeb effort brings known working designs into a coherent foundation on top of which different applications can be written by developers.
 
 
-### <a name="section-considerations"></a> Design considerations dictated by wishes
+### Design considerations dictated by wishes
 
 #### Data encryption, metadata and 3rd parties
 
@@ -92,9 +94,9 @@ User should be able to completely rely on one's own devices, and be able to choo
 People now have several devices. Applications should be able to run on several user devices at once. Applications should be able to pass messages between different users, as well.
 
 
-## <a name="part-architectural-principles"></a> Architectural principles
+## Architectural principles
 
-### <a name="section-pola"></a> The Principle of Least Authority for client-server architectures
+### The Principle of Least Authority for client-server architectures
 
 Client-server systems are used everywhere, they are efficient. Often clients pass some data to server, and this becomes a magnet for bad actors. Any bit of passed data and meta-data comes with an implicit authority that gets abused. We should apply the Principle of Least Authority (POLA).
 
@@ -106,7 +108,7 @@ Let's formulate POLA in terms relevant to client-server communications as 3N's:
 We use 3N principle every time in assesing protocols' designs. The first N is met by end-to-end encryption (E2EE), and in principle this is a solved problem. The second N, the metadata part, will take more consideration and specific tricks for particular services.
 
 
-### <a name="section-federation"></a> Federated systems, classical vs web styles
+### Federated systems, classical vs web styles
 
 #### Classical Federation
 
@@ -144,20 +146,20 @@ This web federation pattern also shows that there need to be a naming system for
 Let's note that 3NWeb name has been choosen to highlight usage of both 3N principle and Web style Federation in the architecure.
 
 
-## <a name="part-impl"></a> Implementation and standards
+## Implementation and standards
 
 App developers make different applications for users. Applications need utilites like file system, while app developers should be shielded from touching encryption and other common details. This is done by an OS-like layer that provides common utilities to applications on one side, and talks to 3NWeb servers on the other.
 
 ![Implementation parts: 3NWeb apps, OS-like layer, 3NWeb utility services](implementation/implementation_parts.png)
 
-### <a name="section-client-side"></a> Client side
+### Client side
 
 The OS-like layer starts different 3NWeb apps. Each app has a manifest that identifies utilities, or capabilities that app requests. This is a capability model, giving to running app only what it needs. App manifest is [described here](./app-manifest/README.md).
 
 ![Implementation parts: capabilities and protocols](implementation/caps_and_protocols.png)
 
 Some 3NWeb app capabilities are backed by communication with servers via 3NWeb protocols:
- - [mail](./capabilities/mail/README.md) - uses [Authenticate Secure Mail (ASMail) protocol](./protocols/asmail/README.md)
+ - [mail](./capabilities/mail/README.md) - uses [Authenticated Secure Mail (ASMail) protocol](./protocols/asmail/README.md)
  - [storage](./capabilities/storage/README.md) - uses [3NStorage protocol](./protocols/3nstorage/README.md)
  - [mailerid](./capabilities/mailerid/README.md) - uses [MailerId protocol](./protocols/mailerid/README.md)
 
@@ -178,7 +180,34 @@ The rest help to combine individual apps into a coherent system on user devices:
  - platform
 
 
-### <a name="section-server-side"></a> Server side 
+### 3NWeb user ids
+
+Users need a global identification system. In email we have globally unique identifiers in a form `<user-id>@domain`. DNS system ensures uniqueness of a domain. And `<user-id>` identifies one user in the domain.
+
+In 3NWeb user identities follow the same principle of tying users to domains.
+
+User identifier string in 3NWeb has form `<user-id>@domain`. Part `<user-id>` can have any characters, except character `@`. Before ids can be compared, they are brought to a canonical form by removing all white space and low-casing all characters.
+
+For example, `Bob Marley @3nweb.com` (note spaces in id) and `bob marley@3nweb.com` correspond to the same canonical id `bobmarley@3nweb.com` that uniquely identifies exactly one user.
+
+
+### Locating user services
+
+User’s 3NWeb services are listed in DNS `TXT` records of user’s domain.
+
+If domain is an onion domain, DNS is not used, and respective Tor service should have well-known resource([RFC5785](https://www.rfc-editor.org/rfc/rfc5785)), `/.well-known/`, with service records.
+
+Domain’s service record identifies server that services users of this domain. Records generally use very flexible URI format starting with authority part. This allows to use service providers, or Tor services, or use ports and paths when many services are packed into the same home server box.
+
+As an example, `3nweb.com` domain has following TXT records in DNS:
+ - for MailerId service: `mailerid=mailerid.org`
+ - for ASMail service: `asmail=3nweb.net/asmail`
+ - for 3NStorage service: `3nstorage=3nweb.net/3nstorage`
+
+
+### 3NWeb service protocols
+
+*Why each protocol needed. This is a paragraph to link to particulars.*
 
 ...
 
