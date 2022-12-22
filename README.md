@@ -207,9 +207,26 @@ As an example, `3nweb.com` domain has following TXT records in DNS:
 
 ### 3NWeb service protocols
 
-*Why each protocol needed. This is a paragraph to link to particulars.*
+In a distributed networked world, where devices break and get replaced with new blank ones, clients have three major needs:
+ - identity service,
+ - messaging service,
+ - storage service.
+
+Main triplet of services is MailerId, ASMail and 3NStorage. Note that 3NWeb principles are applicable in forming other utilities, but these three support basic app needs from an OS-like layer.
+
+#### MailerId - non-tracking identity
 
 ...
+
+
+#### ASMail (Authenticated Secure Mail) - messaging
+
+![Information flow in ASMail](./protocols/asmail/data_flow_in_asmail.png)
+
+
+#### 3NStorage - storage of opaque encrypted blobs
+
+![Information flow in 3NStorage](./protocols/3nstorage/data_flow_in_3nstorage.png)
 
 
 -------
