@@ -221,7 +221,17 @@ Main triplet of services is MailerId, ASMail and 3NStorage. Note that 3NWeb prin
 
 #### ASMail (Authenticated Secure Mail) - messaging
 
+ASMail (Authenticated Secure Mail) protocols is designed for messaging.
+
 ![Information flow in ASMail](./protocols/asmail/data_flow_in_asmail.png)
+
+Sender only delivers messages to recipient inbox. Message is one or more opaque encrypted blobs. Server has absolutely no say in what key and cryptography is used. Sender is anonymous to server, but recipient knows who sender is (see [client side](./capabilities/mail/README.md)).
+
+Direct delivery allows allows for fast turn around. Sender knows if message has been delivered. Sender may know limits before starting to send, which will help with streaming audio/video messages.
+
+Note, sender anonymity ensures that server can't discriminate against users of other vendors/providers.
+
+[See ASMail considerations and specifics here](./protocols/asmail/README.md).
 
 
 #### 3NStorage - storage of opaque encrypted blobs
