@@ -225,7 +225,7 @@ Hackers exploited browser and showed how Persona's identity provider server may 
 
 At its core, MailerId gives user certificates as a trust chain for user-generated signing key. ASMail and 3NStorage services use login process, in which owner proves own identity by signing assertions, similar to BrowserId login. Also users sign with MailerId keys introductory keys in messaging. Relying party, be it some service or a peer, checks signatures, following trust chain all the way to some root certificate for identity providing service, published like in BrowserId.
 
-[See MailerId protocol details here](./protocols/asmail/README.md).
+[See MailerId protocol details here](./protocols/mailerid/README.md).
 
 
 #### ASMail (Authenticated Secure Mail) - messaging
