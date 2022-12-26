@@ -1,3 +1,3 @@
 # ASMail protocol
 
-![Information flow in ASMail](./protocols/asmail/data_flow_in_asmail.png)
+![Information flow in ASMail](./data_flow_in_asmail.png)
