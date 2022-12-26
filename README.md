@@ -214,9 +214,18 @@ In a distributed networked world, where devices break and get replaced with new 
 
 Main triplet of services is MailerId, ASMail and 3NStorage. Note that 3NWeb principles are applicable in forming other utilities, but these three support basic app needs from an OS-like layer.
 
+
 #### MailerId - non-tracking identity
 
-...
+Just having an identity is not enough. There needs to be a way to prove one’s own identity, for example, when logging into some service. For this we need an identity service.
+
+Around 2011 Mozilla developed non-tracking identity protocol BrowserId, later called Mozilla Persona1. Persona authentication system had a cryptographic process for non-tracking verification of identity, embedded into browser use case, and connected to a particular Verified Email Protocol. 
+
+Hackers exploited browser and showed how Persona's identity provider server may track users. But BrowserId’s main cryptographic process is solid. We use it in a protocol, which we call MailerId.
+
+At its core, MailerId gives user certificates as a trust chain for user-generated signing key. ASMail and 3NStorage services use login process, in which owner proves own identity by signing assertions, similar to BrowserId login. Also users sign with MailerId keys introductory keys in messaging. Relying party, be it some service or a peer, checks signatures, following trust chain all the way to some root certificate for identity providing service, published like in BrowserId.
+
+[See MailerId protocol details here](./protocols/asmail/README.md).
 
 
 #### ASMail (Authenticated Secure Mail) - messaging
