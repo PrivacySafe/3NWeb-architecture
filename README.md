@@ -247,12 +247,13 @@ Note, sender anonymity ensures that server can't discriminate against users of o
 
 #### 3NStorage - storage of opaque encrypted blobs
 
+3NWeb storage protocol is called 3NStorage. This protocol provides minimal server functionality that lets client side build multi-device synchronized file systems. Clients store in 3NStorage randomly named opaque encrypted binary blobs. When decrypted on client side, objects become folders and files, but server doesn’t have access to file tree structure, it doesn’t know names of files. File system metadata is never given to 3NStorage server.
+
 ![Information flow in 3NStorage](./protocols/3nstorage/data_flow_in_3nstorage.png)
 
+The protocol has a concept of object versioning. This lets clients track changes in storage and perform synchronization steps accordingly. 3NStorage server also provides an event stream for a push-style change notification.
+
+Every storage is owned by some user. To share access, user client software will create randomly named sharing accounts with limited access to encrypted blobs. Credentials to new account, together with some key material, and together with pointer to object that hold root of a shared file tree, constitute a structure that allows other clients to access shared folders and files while staying anonymous to the server.
+
 [See 3NStorage protocol considerations and specifics here](./protocols/3nstorage/README.md).
-
-
--------
-
-*Docs writting is in progress. Check out an existing [Overview and architecture](./etc/3NWeb-overview.pdf) pdf*.
 
