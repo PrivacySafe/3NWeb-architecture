@@ -231,7 +231,7 @@ Direct delivery allows for fast turn around. Sender knows if message has been de
 
 Note, sender anonymity ensures that server can't discriminate against users of other vendors/providers.
 
-[See ASMail considerations and specifics here](./protocols/asmail/README.md).
+[See ASMail protocol considerations and specifics here](./protocols/asmail/README.md).
 
 
 #### 3NStorage - storage of opaque encrypted blobs
