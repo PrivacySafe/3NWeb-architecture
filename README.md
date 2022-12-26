@@ -221,13 +221,24 @@ Main triplet of services is MailerId, ASMail and 3NStorage. Note that 3NWeb prin
 
 #### ASMail (Authenticated Secure Mail) - messaging
 
-ASMail (Authenticated Secure Mail) protocols is designed for messaging.
+Asynchronous messaging protocol in 3NWeb is called Authenticated Secure Mail, or ASMail for short.
 
 ![Information flow in ASMail](./protocols/asmail/data_flow_in_asmail.png)
 
-Sender only delivers messages to recipient inbox. Message is one or more opaque encrypted blobs. Server has absolutely no say in what key and cryptography is used. Sender is anonymous to server, but recipient knows who sender is (see [client side](./capabilities/mail/README.md)).
+ASMail server has two types of clients: (a) owners of inboxes, and (b) senders who bring messages to inboxes.
 
-Direct delivery allows for fast turn around. Sender knows if message has been delivered. Sender may know limits before starting to send, which will help with streaming audio/video messages.
+Sender encrypts message objects to public keys known only to recipient (see [client side](./capabilities/mail/README.md)) and anonymously leaves message in recipient’s inbox. Recipient learns sender’s identity after decryption of a message. This way sender identity is always authenticated to recipient, and is unknown to server.
+
+There are a few technical details to ensure security, some of which are:
+ - ASMail servers don’t dictate users what encryption algorithms are used for messages, while [client sides](./capabilities/mail/README.md) encrypt, implement key rotation, etc.
+ - There is a concept of introductory keys to start messaging. These can be distributed out of band. At the same time, for less stringent cases, ASMail server lets client to publish its introductory keys, affirmed with MailerId signatures.
+ - Without established key pair sender uses an ephemeral introductory key, sticking all identity and certificate information inside of encrypted envelope of the first message for recipient to do sender verfication. ASMail server may only see if given message uses introductory key, or an established key pair.
+
+Owner of the inbox may open an event stream to be notified about new messages as soon as they are delivered. This provides an experience of an almost instantaneous message delivery.
+
+Direct delivery allows for fast turnaround:
+ - sender knows if message has been delivered,
+ - sender may know limits before starting to send, which will help with streaming audio/video messages.
 
 Note, sender anonymity ensures that server can't discriminate against users of other vendors/providers.
 
@@ -238,8 +249,10 @@ Note, sender anonymity ensures that server can't discriminate against users of o
 
 ![Information flow in 3NStorage](./protocols/3nstorage/data_flow_in_3nstorage.png)
 
+[See 3NStorage protocol considerations and specifics here](./protocols/3nstorage/README.md).
+
 
 -------
 
-Docs writting is in progress, but see an existing [Overview and architecture](./etc/3NWeb-overview.pdf) with more details about specs.
+*Docs writting is in progress. Check out an existing [Overview and architecture](./etc/3NWeb-overview.pdf) pdf*.
 
