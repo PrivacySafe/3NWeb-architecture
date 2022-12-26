@@ -227,7 +227,7 @@ ASMail (Authenticated Secure Mail) protocols is designed for messaging.
 
 Sender only delivers messages to recipient inbox. Message is one or more opaque encrypted blobs. Server has absolutely no say in what key and cryptography is used. Sender is anonymous to server, but recipient knows who sender is (see [client side](./capabilities/mail/README.md)).
 
-Direct delivery allows allows for fast turn around. Sender knows if message has been delivered. Sender may know limits before starting to send, which will help with streaming audio/video messages.
+Direct delivery allows for fast turn around. Sender knows if message has been delivered. Sender may know limits before starting to send, which will help with streaming audio/video messages.
 
 Note, sender anonymity ensures that server can't discriminate against users of other vendors/providers.
 
