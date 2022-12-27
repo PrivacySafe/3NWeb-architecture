@@ -173,9 +173,9 @@ The rest help to combine individual apps into a coherent system on user devices:
    - closeSelf - closes component process
    - log - lets app to log error/warnings into platform
  - for desktop/mobile OS integration:
-   - shell.fileDialog
-   - shell.mountFS
-   - shell.userNotifications
+   - shell.fileDialog - opens file dialogs
+   - shell.mountFS - mounts storage folder inside OS for access of files with non-3NWeb programs
+   - shell.userNotifications - pushing notification to display with OS' UI
  - for platform's UI components:
    - logout - logs out user, closes core, wipes keys from memory
    - apps.opener - to open 3NWeb apps, when user triggers it
