@@ -148,13 +148,13 @@ Let's note that 3NWeb name has been choosen to highlight usage of both 3N princi
 
 ## Implementation and standards
 
-App developers make different applications for users. Applications need utilites like file system, while app developers should be shielded from touching encryption and other common details. This is done by an OS-like layer that provides common utilities to applications on one side, and talks to 3NWeb servers on the other.
+App developers make different applications for users. Applications need utilites like file system, while app developers should be shielded from touching encryption and other common details. This is done by an OS-like platform layer that provides common utilities to applications on one side, and talks to 3NWeb servers on the other.
 
-![Implementation parts: 3NWeb apps, OS-like layer, 3NWeb utility services](implementation/implementation_parts.png)
+![Implementation parts: 3NWeb apps, platform layer, 3NWeb utility services](implementation/implementation_parts.png)
 
 ### Client side
 
-The OS-like layer starts different 3NWeb apps. Each app has a manifest that identifies utilities, or capabilities that app requests. This is a capability model, giving to running app only what it needs. App manifest is [described here](./app-manifest/README.md).
+The platform layer starts different 3NWeb apps. Each app has a manifest that identifies utilities, or capabilities that app requests. This is a capability model, giving to running app only what it needs. App manifest is [described here](./app-manifest/README.md).
 
 ![Implementation parts: capabilities and protocols](implementation/caps_and_protocols.png)
 
@@ -164,20 +164,24 @@ Some 3NWeb app capabilities are backed by communication with servers via 3NWeb p
  - [mailerid](./capabilities/mailerid/README.md) - uses [MailerId protocol](./protocols/mailerid/README.md)
 
 The rest help to combine individual apps into a coherent system on user devices:
- - appRPC
- - otherAppsRPC
- - exposeService
- - connectivity
- - closeSelf
- - log
- - shell.fileDialog
- - shell.mountFS
- - shell.userNotifications
- - logout
- - apps.opener
- - apps.downloader
- - apps.installer
- - platform
+ - for mashup of different apps, their components/services:
+   - appRPC - connects to service components of same app
+   - otherAppsRPC - connects to services exposed by other apps
+   - exposeService - exposes service(s) for others to use. For example, when porting regular web app to 3NWeb platform, functionality that lived in cloud's lambda function is run and exposed as a service here. Regular web API endpoints are re-formulated with RPC calls.
+ - for apps' own needs:
+   - connectivity - tells if client is offline
+   - closeSelf - closes component process
+   - log - lets app to log error/warnings into platform
+ - for desktop/mobile OS integration:
+   - shell.fileDialog
+   - shell.mountFS
+   - shell.userNotifications
+ - for platform's UI components:
+   - logout - logs out user, closes core, wipes keys from memory
+   - apps.opener - to open 3NWeb apps, when user triggers it
+   - apps.downloader - to looks for and downloads new 3NWeb apps, and updates to installed ones
+   - apps.installer - to install new 3NWeb apps into user's platform
+   - platform - to check for platform updates
 
 
 ### 3NWeb user ids
