@@ -1,6 +1,6 @@
 # Mail capability
 
-For communication with ASMail servers platform uses [ASMail protocol](../../protocols/asmail/README.md). And this protocol only passes encrypted blobs, while clients take care of encryption and keys.
+For communication with ASMail servers client-side platform uses [ASMail protocol](../../protocols/asmail/README.md). And this protocol only passes encrypted blobs, while clients take care of encryption and keys.
 
 ![Keys rotation](./mail_keys_rotation.png)
 
