@@ -25,3 +25,7 @@ When Alice (relying party) has to verify a key that is claimed to be for `Bob@mo
 There is a MailerId login sequence similar to that in BrowseId.
 
 ![MailerId used to sign assertion within MailerId login sequence](./flow_in_usage_of_mailerid_2.png)
+
+Docs are work in progress. For now we can point to [docs-like definitions](https://github.com/3nsoft/spec-server/tree/master/ts-code/lib-common/service-api/mailer-id).
+
+Together with protocol definition we will also specify actual tests, [like these ones](https://github.com/3nsoft/spec-server/blob/master/ts-code/tests/protocols/mailerid.ts), giving a tool to check implementations of MailerId service.
