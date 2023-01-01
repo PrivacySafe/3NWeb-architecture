@@ -16,6 +16,8 @@ App developers don't always need to synchronize data between instances on differ
 
 App-facing platform side standardizes on protobuf forms of messages: [storage](https://github.com/3nsoft/core-3nweb-client-lib/blob/master/protos/storage.proto), [file](https://github.com/3nsoft/core-3nweb-client-lib/blob/master/protos/file.proto), [fs](https://github.com/3nsoft/core-3nweb-client-lib/blob/master/protos/fs.proto). Additionally, 3NWeb standards may also include language specific forms, like [this TypeScript definitions](https://github.com/3nsoft/core-3nweb-client-lib/blob/master/ts-code/api-defs/files.d.ts).
 
+Together with defining app-facing message standard we will also specify actual tests, [like](https://github.com/3nsoft/core-3nweb-client-lib/blob/master/ts-code/tests/apis/storage.ts) [these](https://github.com/3nsoft/core-3nweb-client-lib/tree/master/ts-code/tests/apis/fs-checks) [ones](https://github.com/3nsoft/core-3nweb-client-lib/tree/master/ts-code/tests/apis/file-sink-checks), giving a tool to check implementations of platform from app-facing side.
+
 For communication with 3NStorage servers platform uses [3NStorage protocol](../../protocols/3nstorage/README.md).
 
-*Docs are work in progress, but links to code point to working implementation, to least give a gist of technical nuances.*
+*Docs are work in progress, but links to code point to working implementation, to at least give a gist of technical nuances.*
