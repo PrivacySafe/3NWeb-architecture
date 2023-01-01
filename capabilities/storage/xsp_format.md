@@ -67,20 +67,11 @@ In a situation when writer has to send file's header before knowing total file l
 Let's note that since nonce for every chain is unique, it is possible to calculated differences between two versions, i.e. what segments of file have changed, and which stayed the same. Segments that stay same guarantee that respective section of file's content stay the same.
 
 
-## Current format versions (storing attributes)
+## Current format versions
 
-Version 2 is used for content and related attributes' bytes, while version 1 stores no attributes.
-
-Both versions have the same header layout to hide presence of attributes. Version 2 is encrypted like version 1, except that together with n content bytes, k bytes of attributes are encrypted in the following order:
-```
-    |<-    4 bytes    ->| |<-  k bytes  ->| |<- n bytes ->|
-    | num of attr bytes | |  attributes   | |   content   |
-```
-Attributes' length can be up to 4GB in length.
-
-*Note 1*. Format versions 1 and 2 distinguish how content is assembled before encryption. Since packaging is the same, segment level API is the same for these versions. But high level encrypting sink and decrypting source provide APIs with and without attributes.
-
-*Note 2*. We may think about attributes' and content as two sections. Some future format may have more than two sections in object, allowing to have content from different files in the same object without revealing such setup with a different header length. Implementation of such format will need only higher level encrypting sink and decrypting source.
+Currently we identify two versions of content:
+ - version 1 indicates [continous load](https://github.com/3nsoft/core-3nweb-client-lib/blob/master/ts-code/lib-client/3nstorage/xsp-fs/xsp-payload-v1.ts);
+ - version 2, indicates [segmented load](https://github.com/3nsoft/core-3nweb-client-lib/blob/master/ts-code/lib-client/3nstorage/xsp-fs/xsp-payload-v2.ts). Indirect packing allows to hold attributes, write out of order, and to have keep empty space to increase/obfuscate size.
 
 
 ## Object versions
