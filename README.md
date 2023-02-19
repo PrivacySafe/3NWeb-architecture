@@ -126,7 +126,7 @@ Effectively users delegate to their servers work of getting and passing data. Bu
 
 ![Problems in Classical Federation](federation/two_problems_in_classical_federation.png)
 
-Besides metadata problem, cooperative relationship between servers requires cooperation. But the world have seen a few examples of bigger vendors stopping cooperation, breaking user experience of communication with users of other vendors.
+Besides metadata problem, cooperative relationship between servers requires cooperation. And the world has already seen a few examples of bigger vendors stopping cooperation, breaking user experience of communication with users of other vendors.
 
 
 #### Web style Federation
@@ -223,7 +223,7 @@ Main triplet of services is MailerId, ASMail and 3NStorage. Note that 3NWeb prin
 
 Just having an identity is not enough. There needs to be a way to prove one’s own identity, for example, when logging into some service. For this we need an identity service.
 
-Around 2011 Mozilla developed non-tracking identity protocol BrowserId, later called Mozilla Persona1. Persona authentication system had a cryptographic process for non-tracking verification of identity, embedded into browser use case, and connected to a particular Verified Email Protocol. 
+Around 2011 Mozilla developed non-tracking identity protocol BrowserId, later called Mozilla Persona. Persona authentication system had a cryptographic process for non-tracking verification of identity, embedded into browser use case, and connected to a particular Verified Email Protocol. 
 
 Hackers exploited browser and showed how Persona's identity provider server may track users. But BrowserId’s main cryptographic process is solid. We use it in a protocol, which we call MailerId.
 
