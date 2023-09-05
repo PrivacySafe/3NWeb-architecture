@@ -89,6 +89,14 @@ It should be easy to write applications, as easy as writing a web page. And no p
 
 User should be able to completely rely on one's own devices, and be able to choose, to mix and match suppliers. Users shouldn't be bound to only single vendor, or only single implementation of major utility functions on which plethora of useful apps runs.
 
+#### Sites and apps
+
+Every application creates its own virtual space for activities. Similarly to physical spaces, there are two types of virtual spaces: one where user of space is its owner, and another with users, who are not owners.
+
+App is something that should be absolutely controlled by user, an owner of app installation. Site is an extension of an app. It extends virtual space onto devices of other users.
+
+Sites should be tailored for important and long-lasting activities, in contrast to World Wide Web sites, tailored for browsing and fast jumping from one site to another. When WWW site's owner turns servers off, users loose access to their custom data. When site carries an important activity, we expect user to have access to their data. For example, a dentist office app can have a site component extending onto patients' devices, where it also stores copies of patients' medical documents.
+
 #### Multi-device convenience
 
 People now have several devices. Applications should be able to run on several user devices at once. Applications should be able to pass messages between different users, as well.
