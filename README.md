@@ -253,7 +253,7 @@ Sender encrypts message objects to public keys known only to recipient (see [cli
 There are a few technical details to ensure security, some of which are:
  - ASMail servers don’t dictate users what encryption algorithms are used for messages, while [client sides](./capabilities/mail/README.md) encrypt, implement key rotation, etc.
  - There is a concept of introductory keys to start messaging. These can be distributed out of band. At the same time, for less stringent cases, ASMail server lets client to publish its introductory keys, affirmed with MailerId signatures.
- - Without established key pair sender uses an ephemeral introductory key, sticking all identity and certificate information inside of encrypted envelope of the first message for recipient to do sender verfication. ASMail server may only see if given message uses introductory key, or an established key pair.
+ - Without established key pair sender uses an ephemeral introductory key, sticking all identity and certificate information inside of encrypted envelope of the first message for recipient to do sender verfication. ASMail server may only see if given message uses introductory key, or not.
 
 Owner of the inbox may open an event stream to be notified about new messages as soon as they are delivered. This provides an experience of an almost instantaneous message delivery.
 
