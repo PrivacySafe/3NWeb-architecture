@@ -18,7 +18,7 @@ These components collectively function as an OS-like environment.
 - [Architecture Overview](#-architecture-overview)
 - [Motivation](#-motivation)
   - [Why Users Come First](#-why-users-come-first)
-  - [Pragmatic Design Goals](#-pragmatic-design-goals-rooted-in-the-real-world)
+  - [Pragmatic Design Goals](#-pragmatic-design-goals)
 - [Architectural Principles](#-architectural-principles)
   - [Least Authority in the Client-Server Model](#-least-authority-in-the-client-server-model)
   - [Federation: Classical vs. Web-Based](#-federation-classical-vs-web-based)
