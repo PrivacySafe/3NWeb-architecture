@@ -18,7 +18,7 @@ These components collectively function as an OS-like environment.
 - [Architecture Overview](#-architecture-overview)
 - [Motivation](#-motivation)
   - [Why Users Come First](#-why-users-come-first)
-  - [Design Goals Rooted in the Real-World](#-design-goals-rooted-in-the-real-world)
+  - [Pragmatic Design Goals](#-pragmatic-design-goals-rooted-in-the-real-world)
 - [Architectural Principles](#-architectural-principles)
   - [Least Authority in the Client-Server Model](#-least-authority-in-the-client-server-model)
   - [Federation: Classical vs. Web-Based](#-federation-classical-vs-web-based)
@@ -52,7 +52,7 @@ Researchers have long warned about conflicts and friction in information systems
 
 As creators, designers, and engineers, we do not try to deny the reality of conflict in information systems. Instead, we recognize our power to shape reality and build new systems to replace old ones. Once we do so, we acquire a new set of hard, technical problems to solve, and this is a challenge we meet willingly.
 
-### 🌎 Design Goals Rooted in the Real-World
+### 🌎 Pragmatic Design Goals
 
 - 🔐 **Private by design**: Data is encrypted before transit, with metadata minimized at every layer.
 - 📆 **Long-term resilience**: Formats are stable and portable. Users can continue accessing their data long after the original developers or services are gone.
