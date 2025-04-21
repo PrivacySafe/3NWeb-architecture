@@ -1,7 +1,12 @@
-# 3NStorage protocol
+# 📁 3NStorage protocol
 
-![Information flow in 3NStorage](./data_flow_in_3nstorage.png)
+![Information flow in 3NStorage](data_flow_in_3nstorage.png)
 
-Docs are work in progress. For now we can point to [docs-like definitions](https://github.com/3nsoft/spec-server/tree/master/ts-code/lib-common/service-api/3nstorage).
+Please refer to our [Typescript definitions](https://github.com/PrivacySafe/spec-server/tree/master/ts-code/lib-common/service-api/3nstorage). 
 
-Together with protocol definition we will also specify actual tests, [like these ones](https://github.com/3nsoft/spec-server/tree/master/ts-code/tests/protocols/3nstorage), giving a tool to check implementations of 3NStorage service.
+App-facing platforms standardize communication with protobuf messages for [storage](https://github.com/PrivacySafe/core-3nweb-client-lib/blob/master/protos/storage.proto), [files](https://github.com/PrivacySafe/core-3nweb-client-lib/blob/master/protos/file.proto), and [file systems](https://github.com/PrivacySafe/core-3nweb-client-lib/blob/master/protos/fs.proto). 3NWeb also offers language-specific implementations, such as [TypeScript definitions](https://github.com/PrivacySafe/core-3nweb-client-lib/blob/master/ts-code/api-defs/files.d.ts).
+
+We provide tests, like [these](https://github.com/PrivacySafe/core-3nweb-client-lib/blob/master/ts-code/tests/apis/storage.ts), [these](https://github.com/PrivacySafe/core-3nweb-client-lib/tree/master/ts-code/tests/apis/fs-checks), and [these](https://github.com/PrivacySafe/core-3nweb-client-lib/tree/master/ts-code/tests/apis/file-sink-checks) to ensure compliance with the platform’s standards.
+
+---
+The documentation is a work in progress. For active deployment details, refer to the [PrivacySafe](https://github.com/PrivacySafe) implementation.

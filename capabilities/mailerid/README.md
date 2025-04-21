@@ -1,5 +1,8 @@
-# MailerId capability
+# 💌 MailerId Capability
 
-MaileId is used to login into services.
+MailerId is used for logging into services securely.
 
-Docs are work in progress, but they are written after at least one implementation exists, allowing to quickly link to it, and it least to give a gist of technical nuances. For manifest, see [mailerid capability definition here](https://github.com/3nsoft/core-3nweb-client-lib/blob/master/ts-code/api-defs/mailerid.d.ts)
+For the manifest, see the [MailerId capability definition](https://github.com/PrivacySafe/core-3nweb-client-lib/blob/master/ts-code/api-defs/mailerid.d.ts).
+
+---
+The documentation is a work in progress. For active deployment details, refer to the [PrivacySafe](https://github.com/PrivacySafe) implementation.

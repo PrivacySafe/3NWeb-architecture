@@ -1,5 +1,12 @@
-# 3NWeb app manifest
+# 📃 3NWeb App Manifest
 
-Platform needs information about 3NWeb app, what capabilities are requested, app's name, app's icon, what are entry points for each components, what services are exposed, etc. This information better be presented in typed form like JSON, with strings, numbers, arrays and objects to encapsulated related configuration items. XML is too complex. JSON types can be put into JSON file and YAML file, and we can have TypeScript type definitions. Thus, we choose JSON.
+The 3NWeb app manifest provides essential information about the app, including its requested capabilities, name, icon, entry points for each component, and the services it exposes for example via API. This data is best represented in a typed format, such as JSON, which allows us to clearly define configuration items using strings, numbers, arrays, and objects.
 
-Docs are work in progress, but they are written after at least one implementation exists, allowing to quickly link to it, and it least to give a gist of technical nuances. For manifest, see [TypeScript interface AppManifest here](https://github.com/3nsoft/core-platform-electron/blob/74280fef796e295f9e67b64bd92a82e6abdde8d4/ts-code/app-init/app-settings.ts#L35)
+XML is avoided due to its complexity. Instead, JSON files, along with corresponding YAML files, are used to encapsulate configuration data, ensuring clarity and simplicity. TypeScript type definitions are also provided to maintain consistency and accuracy across the system.
+
+By using this structured approach, the 3NWeb platform can better manage app configurations, permissions, and services, enabling developers to integrate apps seamlessly. 
+
+For the manifest details, refer to the [TypeScript interface AppManifest](https://github.com/3nsoft/core-platform-electron/blob/74280fef796e295f9e67b64bd92a82e6abdde8d4/ts-code/app-init/app-settings.ts#L35). This manifest file defines the app's name, version, domain, and the capabilities it requests, such as storage access or communication services. This structure helps users and developers understand exactly what an app can do and what permissions it requires.
+
+---
+The documentation is a work in progress. For active deployment details, refer to the [PrivacySafe](https://github.com/PrivacySafe) implementation.

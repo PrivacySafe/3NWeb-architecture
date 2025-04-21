@@ -1,280 +1,211 @@
-# 3NWeb Architectural Notes
+# 📐 Architecture Overview
 
-3NWeb is an uncompromisingly user-centric digital space.
-Definition of such space has to consist of a bunch of protocols, formats and conventions for writing bodies of software that allow user
- - to operate in a connected cyberspace
- - using one or more devices
- - having a full control over one's tools
- - having a choice of vendors/contractors for underlying tech operations.
+This repository contains architectural notes and specifications for the open 3NWeb protocols, formats, and conventions. These protocols define how apps and services can be built to prioritize user control, privacy, and sovereignty in the digital age. We describe an uncompromisingly user-centric digital space that empowers users to: 
 
-3NWeb-following software parts compose together into a coherent operating system for user's stuff in today's digitalized society, ensuring end user's technological sovereignty.
+- Operate in a connected cyberspace  
+- Use multiple devices fluidly  
+- Maintain full control over their tools and data  
+- Choose between different vendors and service providers  
 
-### Content:
+These components collectively function as an OS-like environment.
 
- - [Motivation](#motivation):
-   - [User interests must come first](#user-interests-must-come-first)
-   - [Design considerations dictated by wishes](#design-considerations-dictated-by-wishes)
- - [Architectural principles](#architectural-principles):
-   - [The Principle of Least Authority for client-server architectures](#the-principle-of-least-authority-for-client-server-architectures)
-   - [Federated systems, classical vs web styles](#federated-systems-classical-vs-web-styles)
- - [Implementation and standards](#implementation-and-standards)
-   - [Client side](#client-side)
-   - [3NWeb user ids](#3nweb-user-ids)
-   - [Locating user services](#locating-user-services)
-   - [3NWeb service protocols](#3nweb-service-protocols)
+> ✅ Want to see this in action? Check out the full implementation at [PrivacySafe](https://privacysafe.app) — a powerful suite of secure, end-user apps built using these protocols, and actively developed at [github.com/PrivacySafe](https://github.com/PrivacySafe). As of 2025, apps for Chat, Inbox, Contacts, Storage, and an App Store updater & launcher have been released as a bundle with documentation at [github.com/PrivacySafe/privacysafe-userguides](https://github.com/PrivacySafe/privacysafe-userguides)
 
+> ⚙️ Technical readers can explore 3NWeb's specifications, protocols, and APIs and contribute to them as part of [IEEE SA Open](https://opensource.ieee.org/3nweb).
 
-## Motivation
+## 📚 Table of Contents
 
-### User interests must come first
+- [Architecture Overview](#-architecture-overview)
+- [Motivation](#-motivation)
+  - [Why Users Come First](#-why-users-come-first)
+  - [Design Goals Rooted in the Real-World](#-design-goals-rooted-in-the-real-world)
+- [Architectural Principles](#-architectural-principles)
+  - [Least Authority in the Client-Server Model](#-least-authority-in-the-client-server-model)
+  - [Federation: Classical vs. Web-Based](#-federation-classical-vs-web-based)
+    - [Classical Federation](#-classical-federation)
+    - [Web-Style Federation](#-web-style-federation)
+- [Implementation & Standards](#-implementation--standards)
+  - [On the Client](#-on-the-client)
+  - [User IDs & Identity](#-user-ids--identity)
+  - [Service Discovery](#-service-discovery)
+  - [Protocol Layers & Components](#-protocol-layers--components)
+    - [MailerId: Verifiable & Private Identity](#-mailerid-verifiable--private-identity)
+    - [ASMail: Secure E2EE Messaging](#-asmail-secure-e2ee-messaging)
+    - [3NStorage: Encrypted Network Storage](#-3nstorage-encrypted-network-storage)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-Everything in modern society depends on tech. For instance, in Estonia you can't participate in life without electronic id with signatures, and Israel explicitly gives smartphone SIM-cards to newly repatriated. Modern life happens in cyberspace making it an important domain of our environment.
- 
-> Human dignity and human flourishing are intimately bound up in the ability to shape your environment and make an impact on the world around you, to act, rather than be acted upon.
+## 💡 Motivation
+
+### 👥 Why Users Come First
+
+Our digital lives demand the same human rights and autonomy we expect offline. Despite this need, modern communication systems are often designed to serve institutions — not the people who use the software and hardware platforms.
+
+> “Human dignity and human flourishing are intimately bound up in the ability to shape your environment and make an impact on the world around you, to act, rather than be acted upon.”  
+> — *Cory Doctorow*
+
+Measuring the success of the Internet by technical metrics (e.g., deployment size, bandwidth, latency, number of users) is not adequate to comprehend modern challenges. Merely doing so ignores how technology is often used as a lever to assert power over users, rather than empower them. From government services to social interactions, technology functions as a gatekeeper. When users aren’t in control, those gates can lock people out.
+
+We believe that standards organizations should prioritize technologies that empower end users. Beyond fulfilling an organizations’s mission, this helps to ensure the long-term health of the Internet and that organization’s relevance to it. Ultimately, the Internet will succeed or fail based upon the actions of its end users: they are the driving force behind its growth. Not prioritizing users — as actual, real people with autonomy and choice — jeopardizes the network effects that the Internet relies upon to provide its incredible value.
+
+Researchers have long warned about conflicts and friction in information systems. From the 2002 paper ["Tussle in Cyberspace"](https://groups.csail.mit.edu/ana/Publications/PubPDFs/Tussle2002.pdf) to [RFC 8890](https://www.rfc-editor.org/rfc/rfc8890.txt) in 2020, experts argue that technology must empower users — not just providers or platforms. Otherwise, our societies can start to resemble [digital feudalism](https://www.schneier.com/blog/archives/2012/12/feudal_sec.html).
+
+As creators, designers, and engineers, we do not try to deny the reality of conflict in information systems. Instead, we recognize our power to shape reality and build new systems to replace old ones. Once we do so, we acquire a new set of hard, technical problems to solve, and this is a challenge we meet willingly.
+
+### 🌎 Design Goals Rooted in the Real-World
+
+- 🔐 **Private by design**: Data is encrypted before transit, with metadata minimized at every layer.
+- 📆 **Long-term resilience**: Formats are stable and portable. Users can continue accessing their data long after the original developers or services are gone.
+- 🧠 **Permissionless innovation**: Anyone can build apps without centralized approval.
+- 💭 **Vendor choice**: Users must be able to rely on their own devices and choose their infrastructure freely.
+- 📱 **Multi-device support**: Data and apps should move seamlessly across a user's own devices.
+- 🏠 **App-site separation**: Users own and control the apps they run. Sites (shared app spaces) are hosted extensions — not centralized dependencies.
+
+## 🔒 Architectural Principles
+
+### 🔏 Least Authority in the Client-Server Model
+
+Client-server models dominate the internet, but they often violate privacy principles. By applying the **Principle of Least Authority (POLA)**, we can reframe these designs to minimize abuse and data leakage.
+
+> The **3N Principle** applied here:
 >
-> -- Cory Doctorow
+> 1. **No plain-text content** is sent to servers  
+> 2. **No unnecessary metadata** is included in client-server exchanges  
+> 3. **Nothing on the server** can be exploited if (1) and (2) are respected
 
-At the start of this century tensions have already been noted in the digital domain (from ["Tussle in Cyberspace: Defining Tomorrow's Internet", DOI 10.1145/633025.633059, August 2002](https://groups.csail.mit.edu/ana/Publications/PubPDFs/Tussle2002.pdf) ):
+While a few efforts like [PGP/GPG](https://www.ietf.org/archive/id/draft-koch-openpgp-2015-rfc4880bis-02.html) have succeeded in giving users true data control, they remain the exception. The dominant technologies favor centralized systems where user data is aggregated. This often introduces security and privacy risks. We seek to make user-respecting design the **default**. By lowering the barrier to develop secure, private apps and making it more economical to run them, we shift the baseline toward ethical digital systems.
 
-> 2. PRINCIPLES
->
-> The thesis of this paper is that the future of the Internet will increasingly be defined
-by tussles that arise among the various parties with divergent interests, and that
-the technical architecture of the Internet must respond to this observation. If this is
-so, are there principles to guide designers, and mechanisms that we should use in
-recognition of this fact?
->
-> 6. CONCLUSION
->
-> ... We, as technical designers, should not try to deny the reality of the tussle, but instead recognize our power to shape it. Once we do so, we acquire a new set of hard, technical problems to solve, and this is a challenge we should step up to willingly.
->
+Apps built using our stack aim to replace centralized “cloud” tools while preserving user freedom, metadata minimization, and offline access.
 
-Over the next two decades we've seen a rise of monopolists and even talks about [digital feudalism](https://www.schneier.com/blog/archives/2012/12/feudal_sec.html). 2020 saw [RFC 8890](https://www.rfc-editor.org/rfc/rfc8890.txt) with:
+### 🌐 Federation: Classical vs. Web-Based
 
-> 3. Why the IETF Should Prioritize End Users
->
-> Merely advancing the measurable success of the Internet (e.g., deployment size, bandwidth, latency, number of users) is not an adequate goal; doing so ignores how technology is so often used as a lever to assert power over users, rather than empower them.
->
-> Beyond fulfilling the IETF's mission, prioritizing end users can also help to ensure the long-term health of the Internet and the IETF's relevance to it.  Perceptions of capture by vendors or other providers harm both; the IETF's work will (deservedly) lose end users' trust if it prioritizes (or is perceived to prioritize) others' interests over them.
->
-> Ultimately, the Internet will succeed or fail based upon the actions of its end users, because they are the driving force behind its growth to date.  Not prioritizing them jeopardizes the network effect that the Internet relies upon to provide so much value.
->
+#### 🔁 Classical Federation
 
-There are applications like PGP, SpiderOak, Signal, with designs that place user in control of their stuff. These are celebrated examples cause the majority isn't like them. Currently it is easier to make centralized design, placing user stuff into piles that both attract hacker with size and seduce vendors with monopolistic control, leading to fatalistic notes in a public discourse.
+Popular in systems like [Jabber/XMPP](https://xmpp.org/rfcs/) or [Matrix](https://spec.matrix.org), this model relies on inter-server cooperation. Each user connects to their “home” server, which then talks to peers’ servers.
 
-3NWeb comes from a premise that when it is easy to develop user-respecting apps, when it is cheaper to operate user-respecting system, then we'll see more of them, making respect of user a norm.
+![Roles in Classical Federation](federation/roles_in_classical_federation.png)
 
-3NWeb effort brings known working designs into a coherent foundation on top of which different applications can be written by developers.
-
-
-### Design considerations dictated by wishes
-
-#### Data encryption, metadata and 3rd parties
-
-In a usual human interaction, when a person is not giving out own information, it doesn't spread by itself.
-
-To map usual expectations to digital domain, we want to ensure tight information control. Thankfully, encryption allows to turn plain text content to bulk cipher and a key. Hence, in our designs bulk bytes can pass through third parties only in cipher form, with as little metadata as possible.
-
-#### Longevity
-
-Human life spans long period, over which artifacts collect, and, for example, a grandfather can show pictures to one's grandchild.
-
-We want to have the same timelessness with digital artifacts. On a stand-alone computer you can open CorelDraw file, and you may even run some old WordPerfect program on an old operating system inside a virtual machine. Digital longevity is attainable. Hence, we design an environment in which users can have applications usable long after original developer company is gone.
-
-#### Permissionless innovation
-
-It should be easy to write applications, as easy as writing a web page. And no permissions should be needed to participate in the ecosystem. Everything short of permissionless model gets abused by monopolistic tendencies.
-
-#### User freedom
-
-User should be able to completely rely on one's own devices, and be able to choose, to mix and match suppliers. Users shouldn't be bound to only single vendor, or only single implementation of major utility functions on which plethora of useful apps runs.
-
-#### Sites and apps
-
-Every application creates its own virtual space for activities. Similarly to physical spaces, there are two types of virtual spaces: one where user of space is its owner, and another with users, who are not owners.
-
-App is something that should be absolutely controlled by user, an owner of app installation. Site is an extension of an app. It extends virtual space onto devices of other users.
-
-Sites should be tailored for important and long-lasting activities, in contrast to World Wide Web sites, tailored for browsing and fast jumping from one site to another. When WWW site's owner turns servers off, users loose access to their custom data. When site carries an important activity, we expect user to have access to their data. For example, a dentist office app can have a site component extending onto patients' devices, where it also stores copies of patients' medical documents.
-
-#### Multi-device convenience
-
-People now have several devices. Applications should be able to run on several user devices at once. Applications should be able to pass messages between different users, as well.
-
-
-## Architectural principles
-
-### The Principle of Least Authority for client-server architectures
-
-Client-server systems are used everywhere, they are efficient. Often clients pass some data to server, and this becomes a magnet for bad actors. Any bit of passed data and meta-data comes with an implicit authority that gets abused. We should apply the Principle of Least Authority (POLA).
-
-Let's formulate POLA in terms relevant to client-server communications as 3N's:
- - No plain text user content should be given to server.
- - No unnecessary metadata should be present or generated in client-server interaction.
- - Nothing can be abused on the server, when the first two criteria are met.
-
-We use 3N principle every time in assesing protocols' designs. The first N is met by end-to-end encryption (E2EE), and in principle this is a solved problem. The second N, the metadata part, will take more consideration and specific tricks for particular services.
-
-
-### Federated systems, classical vs web styles
-
-#### Classical Federation
-
-Federated service is commonly assumed to be a pattern used in many protocols like XMPP, SMTP (common email), Matrix, etc. We call this pattern classical federation.
-
-Relationships between parties in classical federation look as follows.
-
-![Relationships between parties in Classical Federation](federation/roles_in_classical_federation.png)
-
-Users have accounts at servers. User is owner of some resource on the respective server. Users connect only to their own servers, while servers talk to each other, cooperatively passing data.
+Users have accounts at servers. A user owns some resource on their home server and connects only to it, while servers relay messages on their behalf.
 
 ![Information flows in Classical Federation](federation/data_flows_in_classical_federation.png)
 
-Effectively users delegate to their servers work of getting and passing data. But this delegation requires user to pass to servers lots of metadata, which goes against security goal of minimizing metadata spills.
+**Problems:**
+- Requires trust in cooperating vendors
+- Leaks metadata due to server-level routing
+- Can break if large players refuse to interoperate
 
 ![Problems in Classical Federation](federation/two_problems_in_classical_federation.png)
 
-Besides metadata problem, cooperative relationship between servers requires cooperation. And the world has already seen a few examples of bigger vendors stopping cooperation, breaking user experience of communication with users of other vendors.
+#### 🕸️ Web-Style Federation
 
+In contrast, the web model treats each domain or server as autonomous. There is **no expectation of cooperation** between servers. Apps communicate **peer-to-peer**, only as needed.
 
-#### Web style Federation
+**Benefits:**
+- Minimal metadata
+- Easier to preserve privacy
+- No dependency on large vendor coordination
 
-On the web, when someone uses simultaneously two different web sites, respective servers don't communicate and providers don't cooperate with each other. There is no cooperation in web style federation for vendors to break! If a user doesn't want to communicate to some domain, and stops, it is user's own choice. This is a perfect foundation for utility protocols.
+![Data Flows in Web Federation](federation/data_flows_in_web_federation.png)
 
-![Relationships between parties in Web style Federation](federation/roles_in_web_federation.png)
+## 🛠️ Implementation & Standards
 
-In classical federation clients delegate to own server communication with server's of peers. In web federation, clients connect to servers of their peers. And this leads to reduction of metadata that is needed by servers for work.
+The protocols here form the foundation for secure, app-centric systems. Real-world applications like those in the [PrivacySafe Suite](https://privacysafe.app) demonstrate these designs in action.
 
-![Information flows in Web style Federation](federation/data_flows_in_web_federation.png)
+### 💻 On the Client
 
-Server only needs to accept some encrypted data for its users, and/or allow guests to pick encrypted data in accordance with users' directives. This reduces metadata to its minimum, server doesn't need to know who is on another side of a guest connection.
+Apps rely on a platform layer that provides secure services: file access, networking, cryptography, and more. Capabilities are granted based on app manifests — a clear, auditable permission system.
 
-This web federation pattern also shows that there need to be a naming system for it to work, like DNS. Moreover, hiding of IP addresses can be done with VPN's, Tor and mixnets, suggesting reuse of existing transport layers. Formulation on top of existing HTTP/2 may focus our architectural effort on information flows and security.
+![Client Platform Diagram](implementation/implementation_parts.png)
 
-Let's note that 3NWeb name has been choosen to highlight usage of both 3N principle and Web style Federation in the architecure.
+Each capability corresponds to a standard service:
 
+- 📩 **Messaging** → [ASMail protocol](./protocols/asmail/README.md)
+- 📂 **Storage** → [3NStorage protocol](./protocols/3nstorage/README.md)
+- 🔑 **Identity** → [MailerId protocol](./protocols/mailerid/README.md)
 
-## Implementation and standards
+Additional utilities connect apps to the OS or other services securely.
 
-App developers make different applications for users. Applications need utilites like file system, while app developers should be shielded from touching encryption and other common details. This is done by an OS-like platform layer that provides common utilities to applications on one side, and talks to 3NWeb servers on the other.
+Apps use a [manifest file](./app-manifest/README.md)) to declare required capabilities. These capabilities may also include services that help compose multiple apps into a coherent system on user devices.
 
-![Implementation parts: 3NWeb apps, platform layer, 3NWeb utility services](implementation/implementation_parts.png)
+![Capabilities and Protocols](implementation/caps_and_protocols.png)
 
-### Client side
+- 🎨 **App Composition Tools**:
+  - `appRPC`: Connects to components within the same app.
+  - `otherAppsRPC`: Connects to services provided by other apps.
+  - `exposeService`: Publishes services for other apps to use. For instance, when porting a traditional web app to 3NWeb, backend functions like cloud lambdas are refactored as services exposed here via RPC.
 
-The platform layer starts different 3NWeb apps. Each app has a manifest that identifies utilities, or capabilities that app requests. This is a capability model, giving to running app only what it needs. App manifest is [described here](./app-manifest/README.md).
+- 🔢 **Runtime Utilities**:
+  - `connectivity`: Detects if the client is offline.
+  - `closeSelf`: Allows an app to terminate its own process.
+  - `log`: Sends errors and warnings to the platform log.
 
-![Implementation parts: capabilities and protocols](implementation/caps_and_protocols.png)
+- 📁 **OS Integration Utilities**:
+  - `shell.fileDialog`: Opens native file selection dialogs.
+  - `shell.mountFS`: Mounts a 3NWeb storage folder for access by traditional (non-3NWeb) programs.
+  - `shell.userNotifications`: Sends native notifications through the device OS UI.
 
-Some 3NWeb app capabilities are backed by communication with servers via 3NWeb protocols:
- - [mail](./capabilities/mail/README.md) - uses [Authenticated Secure Mail (ASMail) protocol](./protocols/asmail/README.md)
- - [storage](./capabilities/storage/README.md) - uses [3NStorage protocol](./protocols/3nstorage/README.md)
- - [mailerid](./capabilities/mailerid/README.md) - uses [MailerId protocol](./protocols/mailerid/README.md)
+- ⚙️ **Platform Services**:
+  - `logout`: Logs out the user, shuts down core processes, and clears memory-resident keys.
+  - `apps.opener`: Opens 3NWeb apps when triggered by the user.
+  - `apps.downloader`: Finds and downloads new 3NWeb apps, or updates existing ones.
+  - `apps.installer`: Installs new apps into the user’s platform.
+  - `platform`: Checks for updates to the platform software itself.
 
-The rest help to combine individual apps into a coherent system on user devices:
- - for mashup of different apps, their components/services:
-   - appRPC - connects to service components of same app
-   - otherAppsRPC - connects to services exposed by other apps
-   - exposeService - exposes service(s) for others to use. For example, when porting regular web app to 3NWeb platform, functionality that lived in cloud's lambda function is run and exposed as a service here. Regular web API endpoints are re-formulated with RPC calls.
- - for apps' own needs:
-   - connectivity - tells if client is offline
-   - closeSelf - closes component process
-   - log - lets app to log error/warnings into platform
- - for desktop/mobile OS integration:
-   - shell.fileDialog - opens file dialogs
-   - shell.mountFS - mounts storage folder inside OS for access of files with non-3NWeb programs
-   - shell.userNotifications - pushing notification to display with OS' UI
- - for platform's UI components:
-   - logout - logs out user, closes core, wipes keys from memory
-   - apps.opener - to open 3NWeb apps, when user triggers it
-   - apps.downloader - to looks for and downloads new 3NWeb apps, and updates to installed ones
-   - apps.installer - to install new 3NWeb apps into user's platform
-   - platform - to check for platform updates
+### 👤 User IDs & Identity
 
+Each user is globally identifiable via a `<username>@domain` format, similar to email or instant messaging protocols. Identity resolution follows canonical rules: no whitespace, case-insensitive.
 
-### 3NWeb user ids
+Example:  
+`Bob Marley @3nweb.com` becomes `bobmarley@3nweb.com`
 
-Users need a global identification system. In email we have globally unique identifiers in a form `<user-id>@domain`. DNS system ensures uniqueness of a domain. And `<user-id>` identifies one user in the domain.
+### 🔎 Service Discovery
 
-In 3NWeb user identities follow the same principle of tying users to domains.
+Services are discovered via DNS `TXT` records or `.well-known` endpoints on [Tor](https://spec.torproject.org). This approach decouples domain ownership from server location, enabling flexible deployment and decentralization.
 
-User identifier string in 3NWeb has form `<user-id>@domain`. Part `<user-id>` can have any characters, except character `@`. Before ids can be compared, they are brought to a canonical form by removing all white space and low-casing all characters.
+Example DNS entries:
 
-For example, `Bob Marley @3nweb.com` (note spaces in id) and `bob marley@3nweb.com` correspond to the same canonical id `bobmarley@3nweb.com` that uniquely identifies exactly one user.
+```
+asmail=3nweb.net/asmail
+mailerid=mailerid.org
+3nstorage=3nweb.net/3nstorage
+```
 
+### 🔧 Protocol Layers & Components
 
-### Locating user services
+#### 🔑 MailerId: Verifiable & Private Identity
 
-User’s 3NWeb services are listed in DNS `TXT` records of user’s domain.
+Inspired by [Mozilla Persona/BrowserID](https://github.com/mozilla/persona), this protocol issues verifiable identity certificates while preserving user anonymity on servers. Clients sign requests and services verify them without tracking.
 
-If domain is an onion domain, DNS is not used, and respective Tor service should have well-known resource([RFC5785](https://www.rfc-editor.org/rfc/rfc5785)), `/.well-known/`, with service records.
+[See full details](./protocols/mailerid/README.md)
 
-Domain’s service record identifies server that services users of this domain. Records generally use very flexible URI format starting with authority part. This allows to use service providers, or Tor services, or use ports and paths when many services are packed into the same home server box.
+Although Mozilla Persona/BrowserID was technically solid, its centralized identity provider introduced tracking risks, ultimately exploited by researchers to show possible surveillance vectors.
 
-As an example, `3nweb.com` domain has following TXT records in DNS:
- - for MailerId service: `mailerid=mailerid.org`
- - for ASMail service: `asmail=3nweb.net/asmail`
- - for 3NStorage service: `3nstorage=3nweb.net/3nstorage`
+3NWeb’s MailerId keeps the robust certificate chain design of BrowserID, but eliminates tracking by decentralizing trust roots, removing reliance on persistent browser storage, and enabling clients to rotate keys independently. Identity assertions are always signed client-side, and **no identity provider knows where or when they’re used** — enforcing strict separation of concerns.
 
+#### 📩 ASMail: Secure E2EE Messaging
 
-### 3NWeb service protocols
+Messages are end-to-end encrypted (E2EE), with the sender identity revealed only to the recipient. No message content or metadata is visible to the server.
 
-In a distributed networked world, where devices break and get replaced with new blank ones, clients have three major needs:
- - identity service,
- - messaging service,
- - storage service.
+![ASMail Data Flow](./protocols/asmail/data_flow_in_asmail.png)  
+[See full spec](./protocols/asmail/README.md)
 
-Main triplet of services is MailerId, ASMail and 3NStorage. Note that 3NWeb principles are applicable in forming other utilities, but these three support basic app needs from an OS-like layer.
+#### 📂 3NStorage: Encrypted Network Storage
 
+Encrypted blobs are stored without filenames, structure, or metadata. Clients reconstruct file systems locally. Versioning and events enable sync across devices.
 
-#### MailerId - non-tracking identity
+![3NStorage Data Flow](./protocols/3nstorage/data_flow_in_3nstorage.png)  
+[See full spec](./protocols/3nstorage/README.md)
 
-Just having an identity is not enough. There needs to be a way to prove one’s own identity, for example, when logging into some service. For this we need an identity service.
+## ✨ Contributing
 
-Around 2011 Mozilla developed non-tracking identity protocol BrowserId, later called Mozilla Persona. Persona authentication system had a cryptographic process for non-tracking verification of identity, embedded into browser use case, and connected to a particular Verified Email Protocol. 
+Contributions are welcome! Please fork, remix, and create pull requests as part of [IEEE SA Open](https://opensource.ieee.org/3nweb). Happy Hacking 🤓
 
-Hackers exploited browser and showed how Persona's identity provider server may track users. But BrowserId’s main cryptographic process is solid. We use it in a protocol, which we call MailerId.
+Never send sensitive info about you or other users via direct message or email.
 
-At its core, MailerId gives user certificates as a trust chain for user-generated signing key. ASMail and 3NStorage services use login process, in which owner proves own identity by signing assertions, similar to BrowserId login. Also users sign with MailerId keys introductory keys in messaging. Relying party, be it some service or a peer, checks signatures, following trust chain all the way to some root certificate for identity providing service, published like in BrowserId.
+* **Bugs & Security Issues:** See [SECURITY.md](SECURITY.md) for more information.
 
-[See MailerId protocol details here](./protocols/mailerid/README.md).
+## 📜 License
 
+© 2014–present Mikalai Birukou & Sean O'Brien and contributed under the [IEEE SA Open CLA](https://opensource.ieee.org/community/cla/apache). This project is dedicated to ethical [Free and Open Source Software](https://fsf.org) and [Open Source Hardware](https://oshwa.org). Please note that 3NSoft®, 3NWeb® and PrivacySafe® are registered trademarks.
 
-#### ASMail (Authenticated Secure Mail) - messaging
-
-Asynchronous messaging protocol in 3NWeb is called Authenticated Secure Mail, or ASMail for short.
-
-![Information flow in ASMail](./protocols/asmail/data_flow_in_asmail.png)
-
-ASMail server has two types of clients: (a) owners of inboxes, and (b) senders who bring messages to inboxes.
-
-Sender encrypts message objects to public keys known only to recipient (see [client side](./capabilities/mail/README.md)) and anonymously leaves message in recipient’s inbox. Recipient learns sender’s identity after decryption of a message. This way sender identity is always authenticated to recipient, and is unknown to server.
-
-There are a few technical details to ensure security, some of which are:
- - ASMail servers don’t dictate users what encryption algorithms are used for messages, while [client sides](./capabilities/mail/README.md) encrypt, implement key rotation, etc.
- - There is a concept of introductory keys to start messaging. These can be distributed out of band. At the same time, for less stringent cases, ASMail server lets client to publish its introductory keys, affirmed with MailerId signatures.
- - Without established key pair sender uses an ephemeral introductory key, sticking all identity and certificate information inside of encrypted envelope of the first message for recipient to do sender verfication. ASMail server may only see if given message uses introductory key, or not.
-
-Owner of the inbox may open an event stream to be notified about new messages as soon as they are delivered. This provides an experience of an almost instantaneous message delivery.
-
-Direct delivery allows for fast turnaround:
- - sender knows if message has been delivered,
- - sender may know limits before starting to send, which will help with streaming audio/video messages.
-
-Note, sender anonymity ensures that server can't discriminate against users of other vendors/providers.
-
-[See ASMail protocol considerations and specifics here](./protocols/asmail/README.md).
-
-
-#### 3NStorage - storage of opaque encrypted blobs
-
-3NWeb storage protocol is called 3NStorage. This protocol provides minimal server functionality that lets client side build multi-device synchronized file systems. Clients store in 3NStorage randomly named opaque encrypted binary blobs. When decrypted on client side, objects become folders and files, but server doesn’t have access to file tree structure, it doesn’t know names of files. File system metadata is never given to 3NStorage server.
-
-![Information flow in 3NStorage](./protocols/3nstorage/data_flow_in_3nstorage.png)
-
-The protocol has a concept of object versioning. This lets clients track changes in storage and perform synchronization steps accordingly. 3NStorage server also provides an event stream for a push-style change notification.
-
-Every storage is owned by some user. To share access, user client software will create randomly named sharing accounts with limited access to encrypted blobs. Credentials to new account, together with some key material, and together with pointer to object that hold root of a shared file tree, constitute a structure that allows other clients to access shared folders and files while staying anonymous to the server.
-
-[See 3NStorage protocol considerations and specifics here](./protocols/3nstorage/README.md).
-
+Released under the [Apache 2.0 License](LICENSE). See [LICENSE](LICENSE) for more information.

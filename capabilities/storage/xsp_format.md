@@ -1,32 +1,27 @@
-# XSP format for NaCl-encrypted files (XSalsa+Poly).
+# 🔢 XSP Format for Encrypted Files
 
-Each NaCl's cipher must be read completely, before any plain text output.
-Such requirement makes reading big files awkward.
-Therefore, we need a file format, which satisfies the following requirements:
+Each [NaCl](https://nacl.cr.yp.to/index.html) cipher must be read completely before any plaintext is output. This requirement makes reading large files awkward. Therefore, we need a file format that satisfies the following requirements:
 
- * file should be split into segments;
- * it should be possible to randomly read segments;
- * segment should have poly+cipher, allowing to check segment's integrity;
- * it should be possible to randomly remove and add segments without re-encrypting the whole file;
- * segments' nonces should never be reused, even when performing partial changes to a file, without complete file re-encryption;
- * it should be possible to detect segment reshuffling;
- * there should be cryptographic proof of a complete file size, for files with
-known size;
- * there should be a stream-like setting, where segments can be encrypted and read without knowledge of a final length;
- * when complete length of a stream is finally known, switching to known-length setting should be cheap.
+* The file should be split into segments.
+* It should be possible to randomly read segments.
+* Each segment should include a Poly cipher and allow for integrity checks.
+* It should be possible to randomly add or remove segments without re-encrypting the entire file.
+* Segments' nonces should never be reused, even when performing partial changes to the file, without completely re-encrypting the file.
+* It should be possible to detect if segments are reshuffled.
+* There should be cryptographic proof of the complete file size for files with a known size.
+* There should be a stream-like setting where segments can be encrypted and read without knowing the final length in advance.
+* Once the complete length of the stream is known, switching to a known-length setting should be inexpensive.
 
-We call this format XSP, to stand for XSalsa+Poly, to indicate that file layout
-is specifically tailored for storing NaCl's secret box's ciphers.
-XSP file has header, and zero or many segments with data.
+We call this format **XSP**, which stands for **XSalsa+Poly**, to indicate that the file layout is specifically designed for storing NaCl's secret box ciphers. An XSP file consists of a header and zero or more segments with data.
 
-Segments are NaCl's packs of Poly and XSalsa cipher.
+Segments are NaCl's packages of Poly and XSalsa ciphers:
 ```
     +------+ +---------------+
     | poly | |  data cipher  |
     +------+ +---------------+
     | <--  NaCl format   --> |
 ```
-Header is packed with its nonce into WN format (introduced in ecma-nacl):
+The header is packed with its nonce into the WN format (introduced in ecma-nacl):
 ```
     +-------+ +------+ +---------------+
     | nonce | | poly | |  data cipher  |
@@ -34,23 +29,22 @@ Header is packed with its nonce into WN format (introduced in ecma-nacl):
     | <----       WN format      ----> |
 ```
 
+## Header Data
 
-## Header data
-
-Header provides information about segments, their nonces, and expected sizes. It contains the following:
+The header provides information about the segments, their nonces, and expected sizes. It contains the following:
 ```
     |<- 1 byte ->| |<-   2  ->| |<-  n*31  ->|
     +------------+ +----------+ +------------+
     |   version  | | seg size | | seg chains |
     +------------+ +----------+ +------------+
 ```
-* Version byte is a positive integer. Described in this section header layout corresponds to versions 1 and 2.
-* Two big-endian bytes have a non-negative integer with segment content size in 256 byte units. Packed segment size is this plus 16 bytes (for Poly). Last segments in segment chains can be shorter.
-* Info about `n=0,1,...` segment chains.
+* The version byte is a positive integer. The layout described in this section corresponds to versions 1 and 2.
+* Two big-endian bytes represent a non-negative integer for the segment content size in 256-byte units. The packed segment size is this value plus 16 bytes (for Poly). The last segments in segment chains may be shorter.
+* Information about `n=0,1,...` segment chains.
 
-Data segments come in chains. Segments in the same chain have consecutive nonces. All segments should be the same size, except for the last segment in a chain.
+Data segments come in chains. Segments within the same chain have consecutive nonces. All segments should be the same size, except for the last segment in a chain.
 
-Segment chain is described in header with following bytes:
+The segment chain is described in the header with the following bytes:
 ```
     |<-   4 bytes  ->| |<-  3 bytes  ->| |<-     24 bytes    ->|
     +----------------+ +---------------+ +---------------------+
@@ -58,37 +52,29 @@ Segment chain is described in header with following bytes:
     +----------------+ +---------------+ +---------------------+
     |<-                    seg chain                         ->|
 ```
-* First 4 bytes is a big-endian encoded non-negative integer number of segments in this chain.
-* Following 3 bytes is a big-endian encoded non-negative integer with the last segment content length in this chain.
-* Last 24 bytes is a nonce of the first segment in this chain. Nonces for all other segments are calculated by advancing this nonce. For example, advancing this nonce by one, we get nonce for the second segment in the chain, and so on. Nonce advancing function comes from ecma-nacl, treating 24-byte nonce as three 64-bit unsigned integers to which respective number is added.
+* The first 4 bytes are a big-endian encoded non-negative integer representing the number of segments in this chain.
+* The following 3 bytes are a big-endian encoded non-negative integer representing the last segment's content length in this chain.
+* The final 24 bytes are the nonce of the first segment in the chain. Nonces for all other segments are calculated by incrementing this nonce. For example, incrementing this nonce by one gives the nonce for the second segment in the chain, and so on. The nonce increment function comes from ecma-nacl, treating the 24-byte nonce as three 64-bit unsigned integers, to which the respective number is added.
 
-In a situation when writer has to send file's header before knowing total file length, the last chain can be infinite. Number of segments in infinite chain is set to be `0xffffffff`, which is used as the maximum possible segment index. Last segment size in infinite chain is set to common segment size.
+If the writer needs to send the file's header before knowing the total file length, the last chain can be infinite. The number of segments in the infinite chain is set to `0xffffffff`, which represents the maximum possible segment index. The last segment's size in the infinite chain is set to the common segment size.
 
-Let's note that since nonce for every chain is unique, it is possible to calculated differences between two versions, i.e. what segments of file have changed, and which stayed the same. Segments that stay same guarantee that respective section of file's content stay the same.
+Note that since the nonce for each chain is unique, it is possible to calculate the differences between two versions, i.e., identify which segments of the file have changed and which have remained the same. Segments that stay the same guarantee that the corresponding sections of the file's content remain unchanged.
 
+## Current Format Versions
 
-## Current format versions
+Currently, we identify two versions of content:
+* Version 1 indicates [continuous load](https://github.com/PrivacySafe/core-3nweb-client-lib/blob/master/ts-code/lib-client/3nstorage/xsp-fs/xsp-payload-v1.ts);
+* Version 2 indicates [segmented load](https://github.com/PrivacySafe/core-3nweb-client-lib/blob/master/ts-code/lib-client/3nstorage/xsp-fs/xsp-payload-v2.ts). Indirect packing allows attributes to be held, written out of order, and leaves space for increasing or obfuscating the size.
 
-Currently we identify two versions of content:
- - version 1 indicates [continous load](https://github.com/3nsoft/core-3nweb-client-lib/blob/master/ts-code/lib-client/3nstorage/xsp-fs/xsp-payload-v1.ts);
- - version 2, indicates [segmented load](https://github.com/3nsoft/core-3nweb-client-lib/blob/master/ts-code/lib-client/3nstorage/xsp-fs/xsp-payload-v2.ts). Indirect packing allows to hold attributes, write out of order, and to have keep empty space to increase/obfuscate size.
+## Object Versions
 
+Each object may go through multiple versions, and it is useful to have both the object ID and version imprinted into the package. 
 
-## Object versions
+Imagine a client needs to retrieve a specific object and version from a server. If the server provides an incorrect version, it should be immediately noticeable. XSP handles this as follows.
 
-Every object may go through many versions, and it would be nice to have both object id and a version imprinted into package.
-Imagine that a client wants to get a particular object and version from a server.
-If server tries to give an incorrect version, it should be noticeable immediately.
-XSP employs the following approach to this.
+The header is a package with a nonce. The nonce is the initial (zeroth) nonce for an object, incremented by the version number. The zeroth nonce can serve as the object ID. If you expect a particular ID+version combination, you expect to use a particular nonce to open the header.
 
-Header is a with-nonce package.
-Nonce is some zeroth (initial) nonce for an object, advanced by version number.
-Zeroth nonce can be used as object's id.
-If you expect a particular id+version combination, you expect to use a particular nonce to open header.
+In a scenario where two clients try to write the same new version of an object concurrently, they may send headers that use the same nonce. This creates a potential for crypt-analysis of the header. However, since the header only contains information about the segment structure and segment nonces, such crypt-analysis does not compromise the content. When creating a new version, both clients will generate new random nonces for use in the segment chains that form either the entire file or the diff of the new version, ensuring no nonce reuse.
 
-There may be a scenario, in which two clients try to write same new version of an object.
-In this concurrent case, they may send headers that use same nonce.
-This opens a possibility for crypt-analysis of a header.
-But since header only has info about segments structure and segment nonces, such crypt-analysis won't jeopardize the content.
-When creating a new version, both clients will generate new random nonces for use in segments chains that constitute either whole, or a diff of a new version, ensuring that there is no segment nonce reuse.
-
+---
+The documentation is a work in progress. For active deployment details, refer to the [PrivacySafe](https://github.com/PrivacySafe) implementation.

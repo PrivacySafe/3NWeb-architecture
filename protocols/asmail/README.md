@@ -1,7 +1,10 @@
-# ASMail protocol
+# 💌 ASMail protocol
 
-![Information flow in ASMail](./data_flow_in_asmail.png)
+![Information flow in ASMail](data_flow_in_asmail.png)
 
-Docs are work in progress. For now we can point to [docs-like definitions](https://github.com/3nsoft/spec-server/tree/master/ts-code/lib-common/service-api/asmail).
+Read the [ASMail definition](https://github.com/PrivacySafe/core-3nweb-client-lib/blob/master/ts-code/api-defs/mailerid.d.ts).
 
-Together with protocol definition we will also specify actual tests, [like these ones](https://github.com/3nsoft/spec-server/tree/master/ts-code/tests/protocols/asmail), giving a tool to check implementations of ASMail service.
+Together with the protocol definition,  we specify tests [like these](https://github.com/PrivacySafe/spec-server/tree/master/ts-code/tests/protocols/asmail) which provides the capability to check implementations of the ASMail service.
+
+---
+The documentation is a work in progress. For active deployment details, refer to the [PrivacySafe](https://github.com/PrivacySafe) implementation.

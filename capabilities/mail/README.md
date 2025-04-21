@@ -1,21 +1,22 @@
-# Mail capability
+# 💬 Messaging Capability
 
-For communication with ASMail servers client-side platform uses [ASMail protocol](../../protocols/asmail/README.md). And this protocol only passes encrypted blobs, while clients take care of encryption and keys.
+The [ASMail protocol](../../protocols/asmail/README.md), used for communication within the client platform, ensures that all messages are transmitted as encrypted blobs. The encryption and key management are handled by the clients themselves.
 
-![Keys rotation](./mail_keys_rotation.png)
+![Keys rotation](mail_keys_rotation.png)
 
-Mail capability inside client platform keeps track of of keys used to communicated with different peers. Each message is encrypted with its own randomly generated key, but it itself is encrypted using public key cryptography. Public keys of peers are also rotate to reduce leakage from breaches.
+Each message is encrypted with a unique key, and that key is further encrypted using public key cryptography. To enhance security, the public keys of peers are rotated regularly. This reduces the risk of key leakage in case of breaches.
 
-When peers have randomly generated keys, they are unique, and correct key to message implies peer from who the message must've come. If messages have no hint to what keys are used, recipient has to try all keys to find correct one. Protocol allows passing key pair label to help client find the right key faster.
+When using randomly generated keys, each key is unique, so the recipient can easily determine the sender. If the key isn't provided, the recipient must try all possible keys to find the correct one. To make this process more efficient, the protocol allows passing a key pair label that helps clients find the correct key faster.
 
-![Plaintext metadata of message](./metadata_message_part.png)
+![Plaintext metadata of message](metadata_message_part.png)
 
-[This implementation](https://github.com/3nsoft/core-3nweb-client-lib/tree/master/ts-code/core/asmail) uses short random pair ids ensuring small average number of decryption attempts without turning pair id into a pseudonymous identifier of sender.
+[This implementation](https://github.com/PrivacySafe/core-3nweb-client-lib/tree/master/ts-code/core/asmail) uses random pair IDs to minimize the number of decryption attempts, without turning the pair ID into a pseudonymous identifier for the sender.
 
-Message is one or more encrypted blobs. Main object contains encrypted json, defined with [MsgStruct definition](https://github.com/3nsoft/core-3nweb-client-lib/blob/master/ts-code/api-defs/asmail.d.ts#L208). Attachments are regular files and folders of 3NStorage file system. Attachments' holding root folder is placed into main object json. Respective encrypted objects are passed as part of the message.
+Each message consists of one or more encrypted blobs, with the main object containing an encrypted JSON defined by the [MsgStruct definition](https://github.com/PrivacySafe/core-3nweb-client-lib/blob/master/ts-code/api-defs/asmail.d.ts#L208). Attachments, which are standard files or folders in the 3NStorage file system, are included as encrypted objects within the message.
 
-App-facing platform side standardizes on protobuf forms of [messages passed between platform and app](https://github.com/3nsoft/core-3nweb-client-lib/blob/master/protos/asmail.proto). Additionally, 3NWeb standards may also include language specific forms, like [this TypeScript definitions](https://github.com/3nsoft/core-3nweb-client-lib/blob/master/ts-code/api-defs/asmail.d.ts).
+The platform standardizes messages exchanged between the app and platform using [protobuf formats](https://github.com/PrivacySafe/core-3nweb-client-lib/blob/master/protos/asmail.proto). Additionally, specific language bindings, such as [TypeScript definitions](https://github.com/PrivacySafe/core-3nweb-client-lib/blob/master/ts-code/api-defs/asmail.d.ts), are also part of the standard.
 
-Together with defining app-facing message standard we will also specify actual tests, [like](https://github.com/3nsoft/core-3nweb-client-lib/blob/master/ts-code/tests/apis/asmail.ts) [these ones](https://github.com/3nsoft/core-3nweb-client-lib/tree/master/ts-code/tests/apis/asmail), giving a tool to check implementations of platform from app-facing side.
+We also provide [tests](https://github.com/PrivacySafe/core-3nweb-client-lib/blob/master/ts-code/tests/apis/asmail.ts) to ensure the platform implementation meets the messaging standards, offering a way to verify app-to-platform integration.
 
-*Docs are work in progress, but links to code point to working implementation, to at least give a gist of technical nuances.*
+---
+The documentation is a work in progress. For active deployment details, refer to the [PrivacySafe](https://github.com/PrivacySafe) implementation.

@@ -1,13 +1,15 @@
-# Bunch of different documents
+# 🗃️ Various Documents
 
-We attempt to have both sources and pdf's. Gitlab displays pdf's right in the browser for seamless browsing.
-
+We strive to provide both source files and documents such as PDFs in `git` to keep track of our progress on 3NWeb and the active [PrivacySafe](https://privacysafe.app) implementation of these technical specifications.
 
 ## 3NWeb
 
- - [Overview and architecture](./3NWeb-overview.pdf) is a form to express architectural rationale, as a preamble for specs.
-
+- The [Overview and Architecture](3NWeb-overview.pdf) document serves as an introduction to the architectural rationale, providing context before diving into the technical specifications.
 
 ## IEEE
 
- - [January 2022 meeting presentation](./2022-01-05_ieee_meeting_notes.pdf) outlines 3NWeb parts, and gives a perspective for other related 3NWeb standards that together give a base to build useful stuff.
+- The [January 2022 meeting presentation](2022-01-05_ieee_meeting_notes.pdf) outlines key aspects of 3NWeb, offering insights into related 3NWeb standards that together create a foundation for building practical applications.
+
+---
+
+The documentation is a work in progress. For the technical details, refer to the [PrivacySafe](https://github.com/PrivacySafe) implementation.
